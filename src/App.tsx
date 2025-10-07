@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Hero } from '@/sections/Hero'
 import { About } from '@/sections/About'
 import { Services } from '@/sections/Services'
+import { Gallery } from '@/sections/Gallery'
 
 function App() {
   return (
@@ -19,17 +20,10 @@ function App() {
       {/* Services section */}
       <Services />
 
-      {/* Placeholder sections - real content comes in later tasks */}
+      {/* Gallery section */}
+      <Gallery />
 
-      <Section id="gallery" className="bg-muted/50">
-        <Container>
-          <SectionHeading
-            title="Gallery"
-            subtitle="Image gallery will appear here"
-            centered
-          />
-        </Container>
-      </Section>
+      {/* Placeholder sections - real content comes in later tasks */}
 
       <Section id="testimonials">
         <Container>
