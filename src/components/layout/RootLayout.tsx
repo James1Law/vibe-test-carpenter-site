@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/sonner'
 import { SkipToContent } from './SkipToContent'
 import { Header } from './Header'
 import { Footer } from './Footer'
@@ -17,6 +18,7 @@ export function RootLayout({ children }: RootLayoutProps) {
         </main>
         <Footer />
       </div>
+      <Toaster />
     </>
   )
 }

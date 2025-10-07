@@ -1,13 +1,10 @@
 import { RootLayout } from '@/components/layout/RootLayout'
-import { Container } from '@/components/common/Container'
-import { Section } from '@/components/common/Section'
-import { SectionHeading } from '@/components/common/SectionHeading'
-import { Button } from '@/components/ui/button'
 import { Hero } from '@/sections/Hero'
 import { About } from '@/sections/About'
 import { Services } from '@/sections/Services'
 import { Gallery } from '@/sections/Gallery'
 import { Testimonials } from '@/sections/Testimonials'
+import { Contact } from '@/sections/Contact'
 
 function App() {
   return (
@@ -27,27 +24,8 @@ function App() {
       {/* Testimonials section */}
       <Testimonials />
 
-      {/* Placeholder sections - real content comes in later tasks */}
-
-      <Section id="contact" className="bg-muted/50">
-        <Container>
-          <SectionHeading
-            title="Contact"
-            subtitle="Contact form and details will appear here"
-            centered
-          />
-          <div className="mx-auto max-w-md space-y-4">
-            <p className="text-center text-sm text-muted-foreground">
-              Form with validation will be added in T10.
-            </p>
-            <div className="flex justify-center gap-3">
-              <Button variant="outline">Call</Button>
-              <Button variant="outline">Email</Button>
-              <Button>WhatsApp</Button>
-            </div>
-          </div>
-        </Container>
-      </Section>
+      {/* Contact section */}
+      <Contact />
     </RootLayout>
   )
 }
