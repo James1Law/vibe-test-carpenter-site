@@ -1,4 +1,5 @@
 import { RootLayout } from '@/components/layout/RootLayout'
+import { SEOHead } from '@/components/SEOHead'
 import { Hero } from '@/sections/Hero'
 import { About } from '@/sections/About'
 import { Services } from '@/sections/Services'
@@ -9,6 +10,7 @@ import { Contact } from '@/sections/Contact'
 function App() {
   return (
     <RootLayout>
+      <SEOHead />
       {/* Hero section */}
       <Hero />
 
