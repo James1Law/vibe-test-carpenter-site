@@ -10,10 +10,14 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { Hero } from '@/sections/Hero'
 
 function App() {
   return (
     <RootLayout>
+      {/* Hero section */}
+      <Hero />
+
       {/* Placeholder sections - real content comes in later tasks */}
       <Section id="about" className="bg-muted/50">
         <Container>
