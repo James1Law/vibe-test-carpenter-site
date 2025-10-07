@@ -7,6 +7,7 @@ import { Hero } from '@/sections/Hero'
 import { About } from '@/sections/About'
 import { Services } from '@/sections/Services'
 import { Gallery } from '@/sections/Gallery'
+import { Testimonials } from '@/sections/Testimonials'
 
 function App() {
   return (
@@ -23,17 +24,10 @@ function App() {
       {/* Gallery section */}
       <Gallery />
 
-      {/* Placeholder sections - real content comes in later tasks */}
+      {/* Testimonials section */}
+      <Testimonials />
 
-      <Section id="testimonials">
-        <Container>
-          <SectionHeading
-            title="Testimonials"
-            subtitle="Customer testimonials will appear here"
-            centered
-          />
-        </Container>
-      </Section>
+      {/* Placeholder sections - real content comes in later tasks */}
 
       <Section id="contact" className="bg-muted/50">
         <Container>
