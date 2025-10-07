@@ -2,16 +2,10 @@ import { RootLayout } from '@/components/layout/RootLayout'
 import { Container } from '@/components/common/Container'
 import { Section } from '@/components/common/Section'
 import { SectionHeading } from '@/components/common/SectionHeading'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Hero } from '@/sections/Hero'
 import { About } from '@/sections/About'
+import { Services } from '@/sections/Services'
 
 function App() {
   return (
@@ -22,32 +16,10 @@ function App() {
       {/* About section */}
       <About />
 
-      {/* Placeholder sections - real content comes in later tasks */}
+      {/* Services section */}
+      <Services />
 
-      <Section id="services">
-        <Container>
-          <SectionHeading
-            title="Services"
-            subtitle="Grid of services will appear here"
-            centered
-          />
-          <div className="grid gap-6 md:grid-cols-3">
-            {[1, 2, 3].map((i) => (
-              <Card key={i}>
-                <CardHeader>
-                  <CardTitle>Service {i}</CardTitle>
-                  <CardDescription>Placeholder card</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">
-                    Service content will be added in T07.
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </Container>
-      </Section>
+      {/* Placeholder sections - real content comes in later tasks */}
 
       <Section id="gallery" className="bg-muted/50">
         <Container>
