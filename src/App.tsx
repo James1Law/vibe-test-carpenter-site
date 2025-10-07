@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Hero } from '@/sections/Hero'
+import { About } from '@/sections/About'
 
 function App() {
   return (
@@ -18,22 +19,10 @@ function App() {
       {/* Hero section */}
       <Hero />
 
+      {/* About section */}
+      <About />
+
       {/* Placeholder sections - real content comes in later tasks */}
-      <Section id="about" className="bg-muted/50">
-        <Container>
-          <SectionHeading
-            title="About"
-            subtitle="This section will contain the about content"
-            centered
-          />
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-muted-foreground">
-              Layout shell complete. Navigation anchors are wired up. Real
-              content will be added in upcoming tasks.
-            </p>
-          </div>
-        </Container>
-      </Section>
 
       <Section id="services">
         <Container>

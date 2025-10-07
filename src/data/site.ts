@@ -1,24 +1,24 @@
 export const siteData = {
-  name: 'Professional Carpentry & Joinery',
-  tagline: 'Bespoke woodwork and fitted furniture across Surrey',
+  name: 'Wright Angle Carpentry',
+  tagline: 'Bespoke joinery and fitted furniture across Dorset',
   description:
-    'Expert carpenter and joiner with 15+ years experience. Specialising in bespoke kitchens, wardrobes, and custom furniture.',
+    'Master joinery practice with 20+ years experience delivering precise, made-to-measure work for homes across Wareham, Poole, Dorset and surrounding towns.',
 
   contact: {
     phone: '01234 567890',
-    email: 'hello@carpentryjoinery.co.uk',
+    email: 'hello@wrightanglecarpentry.co.uk',
     whatsapp: '+441234567890',
   },
 
   address: {
     street: '123 High Street',
-    city: 'Guildford',
-    county: 'Surrey',
-    postcode: 'GU1 3AA',
+    city: 'Wareham',
+    county: 'Dorset',
+    postcode: 'BH20 4AA',
     country: 'United Kingdom',
   },
 
-  areaServed: ['Surrey', 'West Sussex', 'Hampshire'],
+  areaServed: ['Wareham', 'Poole', 'Dorset', 'Surrounding towns'],
 
   hours: {
     monday: '8:00 AM – 6:00 PM',
@@ -31,17 +31,15 @@ export const siteData = {
   },
 
   socials: {
-    facebook: 'https://facebook.com/carpentryjoinery',
-    instagram: 'https://instagram.com/carpentryjoinery',
+    facebook: 'https://facebook.com/wrightanglecarpentry',
+    instagram: 'https://instagram.com/wrightanglecarpentry',
     linkedin: null,
     twitter: null,
   },
 
   meta: {
-    foundedYear: 2008,
-    qualifications: [
-      'City & Guilds Level 3 Carpentry',
-      'Fully Insured (Public Liability £5M)',
-    ],
+    foundedYear: 2004,
+    yearsExperience: 20,
+    qualifications: ['Master Joiner', 'Fully Insured (Public Liability £5M)'],
   },
 }
