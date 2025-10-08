@@ -3,94 +3,71 @@ import { contactSchema } from '../src/lib/validation/contactSchema'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
-export const config = {
-  runtime: 'edge',
-}
+export const config = { runtime: 'edge' }
 
-export default async function handler(req: Request) {
-  // Only allow POST requests
-  if (req.method !== 'POST') {
-    return new Response(JSON.stringify({ error: 'Method not allowed' }), {
-      status: 405,
-      headers: { 'Content-Type': 'application/json' },
-    })
-  }
-
+export default async function handler(req: Request): Promise<Response> {
   try {
-    // Parse and validate request body
-    const body = await req.json()
-    const validationResult = contactSchema.safeParse(body)
-
-    if (!validationResult.success) {
-      return new Response(
-        JSON.stringify({
-          error: 'Invalid input',
-          details: validationResult.error.errors,
-        }),
-        {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      )
+    if (req.method !== 'POST') {
+      return new Response(JSON.stringify({ error: 'Method not allowed' }), {
+        status: 405,
+        headers: { 'content-type': 'application/json' },
+      })
     }
 
-    const formData = validationResult.data
+    const body = await req.json()
+    const parsed = contactSchema.safeParse(body)
+    if (!parsed.success) {
+      return new Response(JSON.stringify({ error: 'Invalid input' }), {
+        status: 400,
+        headers: { 'content-type': 'application/json' },
+      })
+    }
 
-    // Send email via Resend
-    const { data, error } = await resend.emails.send({
-      from: 'Wright Angle Carpentry <noreply@wrightanglecarpentry.co.uk>',
-      to: ['james@wrightanglecarpentry.co.uk'],
+    const data = parsed.data
+
+    // TEMPORARY VERIFIED SENDER (Resend onboarding domain)
+    // Once 'wrightanglecarpentry.co.uk' is verified in Resend,
+    // change RESEND_FROM in Vercel to use your domain email.
+    const FROM =
+      process.env.RESEND_FROM ||
+      'Wright Angle Carpentry <onboarding@resend.dev>'
+
+    const TO = process.env.RESEND_TO || 'james@wrightanglecarpentry.co.uk'
+
+    const result = await resend.emails.send({
+      from: FROM,
+      to: [TO],
+      reply_to: data.email,
       subject: 'New enquiry from Wright Angle Carpentry website',
-      replyTo: formData.email,
-      text: `
-Name: ${formData.name}
-Email: ${formData.email}
-Phone: ${formData.phone || 'N/A'}
-
-Message:
-${formData.message}
-
----
-Sent from Wright Angle Carpentry contact form
-      `.trim(),
+      text: [
+        `Name: ${data.name}`,
+        `Email: ${data.email}`,
+        `Phone: ${data.phone || 'N/A'}`,
+        '',
+        'Message:',
+        data.message,
+      ].join('\n'),
     })
 
-    if (error) {
-      console.error('Resend API error:', error)
-      return new Response(
-        JSON.stringify({
-          error: 'Failed to send email',
-          details: error.message,
-        }),
-        {
-          status: 500,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      )
+    if ('error' in result && result.error) {
+      console.error('Resend error:', result.error)
+      return new Response(JSON.stringify({ error: 'Email send failed' }), {
+        status: 500,
+        headers: { 'content-type': 'application/json' },
+      })
     }
 
-    return new Response(
-      JSON.stringify({
-        success: true,
-        messageId: data?.id,
-      }),
-      {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    )
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200,
+      headers: { 'content-type': 'application/json' },
+    })
   } catch (err) {
-    console.error('Unexpected error:', err)
-    return new Response(
-      JSON.stringify({
-        error: 'Internal server error',
-        details: err instanceof Error ? err.message : 'Unknown error',
-      }),
-      {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    )
+    const errorMessage = err instanceof Error ? err.message : 'Unknown error'
+    console.error('API error:', errorMessage)
+    return new Response(JSON.stringify({ error: 'Server error' }), {
+      status: 500,
+      headers: { 'content-type': 'application/json' },
+    })
   }
 }
 

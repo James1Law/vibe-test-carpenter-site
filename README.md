@@ -177,24 +177,37 @@ The contact form uses **Resend API** to deliver enquiries to `james@wrightanglec
    - Sign up at [resend.com](https://resend.com)
    - Create API key at [resend.com/api-keys](https://resend.com/api-keys)
 
-2. **Configure Environment Variable in Vercel:**
+2. **Configure Environment Variables in Vercel:**
    - Go to Vercel Project → Settings → Environment Variables
-   - Add variable:
-     - **Name:** `RESEND_API_KEY`
-     - **Value:** Your Resend API key (e.g., `re_...`)
-     - **Environments:** Preview + Production
+   - Add these variables:
+   
+   | Variable | Value | Required | Environments |
+   |----------|-------|----------|--------------|
+   | `RESEND_API_KEY` | Your Resend API key (e.g., `re_...`) | Yes | Preview + Production |
+   | `RESEND_FROM` | Sender email (default: `Wright Angle Carpentry <onboarding@resend.dev>`) | No | Preview + Production |
+   | `RESEND_TO` | Recipient email (default: `james@wrightanglecarpentry.co.uk`) | No | Preview + Production |
 
-3. **Redeploy:**
+   **Note:** `RESEND_FROM` uses `onboarding@resend.dev` (verified domain) by default. Once you verify `wrightanglecarpentry.co.uk` in Resend, update to `Wright Angle Carpentry <noreply@wrightanglecarpentry.co.uk>`.
+
+3. **Verify Domain (Optional, for branded sender):**
+   - Go to [Resend Domains](https://resend.com/domains)
+   - Add `wrightanglecarpentry.co.uk`
+   - Add DNS records as instructed
+   - Once verified, update `RESEND_FROM` in Vercel
+
+4. **Redeploy:**
    ```bash
    git push origin feature/carpenter-onepage
    ```
-   Vercel will automatically redeploy with the new environment variable.
+   Vercel will automatically redeploy with the new environment variables.
 
 ### Local Development
 
 For local testing, create a `.env` file (not committed):
 ```bash
 RESEND_API_KEY=your_api_key_here
+RESEND_FROM=Wright Angle Carpentry <onboarding@resend.dev>
+RESEND_TO=james@wrightanglecarpentry.co.uk
 ```
 
 **Note:** The API endpoint (`/api/sendEmail.ts`) is a Vercel serverless function. Local development requires Vercel CLI:
