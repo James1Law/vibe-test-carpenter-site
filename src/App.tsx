@@ -5,6 +5,10 @@ import { Hero } from '@/sections/Hero'
 import { About } from '@/sections/About'
 import { Services } from '@/sections/Services'
 
+// Analytics placeholder - uncomment when ready to enable
+// import { Analytics } from '@vercel/analytics/react'
+// OR for privacy-focused: npm install plausible-tracker
+
 // Lazy load non-critical sections for better performance
 const Gallery = lazy(() => import('@/sections/Gallery').then(module => ({ default: module.Gallery })))
 const Testimonials = lazy(() => import('@/sections/Testimonials').then(module => ({ default: module.Testimonials })))
@@ -19,6 +23,8 @@ function App() {
   return (
     <RootLayout>
       <SEOHead />
+      {/* Analytics - uncomment when ready to enable tracking */}
+      {/* <Analytics /> */}
       {/* Hero section */}
       <Hero />
 

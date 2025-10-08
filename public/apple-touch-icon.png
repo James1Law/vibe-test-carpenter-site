@@ -1,0 +1,7 @@
+PLACEHOLDER_PNG_180x180
+<!-- NOTE: Replace with actual 180x180 PNG icon for iOS.
+     Generate from favicon.svg using:
+     - https://realfavicongenerator.net
+     - OR: npx sharp-cli -i public/favicon.svg -o public/apple-touch-icon.png resize 180 180
+-->
+

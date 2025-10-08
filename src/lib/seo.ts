@@ -20,7 +20,7 @@ export function buildMeta(options: {
   image?: string
 }): SEOMeta {
   const canonical =
-    options.canonical || 'https://wrightanglecarpentry.vercel.app'
+    options.canonical || 'https://www.wrightanglecarpentry.co.uk'
   const image = options.image || `${canonical}/og-image.jpg`
 
   return {
