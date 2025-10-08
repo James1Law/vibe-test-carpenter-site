@@ -23,9 +23,9 @@ const navLinks = [
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  const phoneHref = `tel:${siteData.contact.phone.replace(/\s/g, '')}`
+  const phoneHref = `tel:${siteData.contact.phoneE164}`
   const emailHref = `mailto:${siteData.contact.email}?subject=${encodeURIComponent('Quote Request')}`
-  const whatsappHref = `https://wa.me/${siteData.contact.whatsapp.replace(/\+/g, '')}?text=${encodeURIComponent("Hi, I'd like a quote")}`
+  const whatsappHref = `https://wa.me/${siteData.contact.whatsapp.replace(/\+/g, '')}?text=${encodeURIComponent("Hi James, I'd like a quote for joinery work.")}`
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -59,7 +59,7 @@ export function Header() {
             <Button variant="ghost" size="sm" asChild>
               <a
                 href={phoneHref}
-                aria-label={`Call us at ${siteData.contact.phone}`}
+                aria-label={`Call us at ${siteData.contact.phoneDisplay}`}
               >
                 <Phone className="mr-2 h-4 w-4" />
                 Call
@@ -92,7 +92,7 @@ export function Header() {
             <Button variant="default" size="sm" asChild>
               <a
                 href={phoneHref}
-                aria-label={`Call us at ${siteData.contact.phone}`}
+                aria-label={`Call us at ${siteData.contact.phoneDisplay}`}
               >
                 <Phone className="h-4 w-4" />
               </a>
@@ -133,10 +133,10 @@ export function Header() {
                     <Button variant="outline" size="lg" asChild>
                       <a
                         href={phoneHref}
-                        aria-label={`Call us at ${siteData.contact.phone}`}
+                        aria-label={`Call us at ${siteData.contact.phoneDisplay}`}
                       >
                         <Phone className="mr-2 h-5 w-5" />
-                        Call {siteData.contact.phone}
+                        Call {siteData.contact.phoneDisplay}
                       </a>
                     </Button>
                     <Button variant="outline" size="lg" asChild>

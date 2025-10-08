@@ -27,9 +27,9 @@ import { Phone, Mail, MessageCircle, Send } from 'lucide-react'
 export function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const phoneHref = `tel:${siteData.contact.phone.replace(/\s/g, '')}`
+  const phoneHref = `tel:${siteData.contact.phoneE164}`
   const emailHref = `mailto:${siteData.contact.email}?subject=${encodeURIComponent('Quote request')}`
-  const whatsappHref = `https://wa.me/${siteData.contact.whatsapp.replace(/\+/g, '')}?text=${encodeURIComponent("Hi, I'd like a quote for joinery work")}`
+  const whatsappHref = `https://wa.me/${siteData.contact.whatsapp.replace(/\+/g, '')}?text=${encodeURIComponent("Hi James, I'd like a quote for joinery work.")}`
 
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
@@ -194,13 +194,13 @@ export function Contact() {
                   >
                     <a
                       href={phoneHref}
-                      aria-label={`Call us at ${siteData.contact.phone}`}
+                      aria-label={`Call us at ${siteData.contact.phoneDisplay}`}
                     >
                       <Phone className="mr-3 h-5 w-5" />
                       <div className="text-left">
                         <div className="text-sm font-medium">Call us</div>
                         <div className="text-sm text-muted-foreground">
-                          {siteData.contact.phone}
+                          {siteData.contact.phoneDisplay}
                         </div>
                       </div>
                     </a>

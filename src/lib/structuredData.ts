@@ -85,7 +85,7 @@ export function localBusinessJsonLd(
     description: siteData.description,
     url: canonicalUrl,
     image: `${canonicalUrl}/og-image.jpg`,
-    telephone: siteData.contact.phone,
+    telephone: siteData.contact.phoneE164,
     email: siteData.contact.email,
     address: {
       '@type': 'PostalAddress',
