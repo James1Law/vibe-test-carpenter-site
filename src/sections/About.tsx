@@ -25,7 +25,7 @@ const trustBadges = [
 
 export function About() {
   return (
-    <section id="about" aria-labelledby="about-heading">
+    <section id="about" aria-labelledby="about-heading" tabIndex={-1}>
       <Section className="bg-muted/50">
         <Container>
           <SectionHeading
@@ -36,7 +36,7 @@ export function About() {
 
           {/* Business copy */}
           <div className="mx-auto max-w-3xl space-y-6 text-center">
-            <p className="text-lg leading-relaxed text-muted-foreground">
+            <p className="text-lg leading-relaxed text-foreground">
               <strong className="font-semibold text-foreground">
                 {siteData.name}
               </strong>{' '}
@@ -51,7 +51,7 @@ export function About() {
               .
             </p>
 
-            <p className="text-lg leading-relaxed text-muted-foreground">
+            <p className="text-lg leading-relaxed text-foreground">
               From{' '}
               <strong className="font-semibold text-foreground">
                 bespoke staircases
@@ -76,7 +76,7 @@ export function About() {
               detail.
             </p>
 
-            <p className="text-base leading-relaxed text-muted-foreground">
+            <p className="text-base leading-relaxed text-foreground">
               Fully insured, punctual and tidy on site — with clear
               communication from first quote to final handover.
             </p>

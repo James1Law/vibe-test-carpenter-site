@@ -10,4 +10,18 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  build: {
+    target: 'es2020',
+    cssCodeSplit: true,
+    sourcemap: false,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ['react', 'react-dom'],
+          forms: ['react-hook-form', '@hookform/resolvers', 'zod'],
+          ui: ['lucide-react'],
+        },
+      },
+    },
+  },
 })

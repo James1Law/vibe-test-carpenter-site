@@ -13,7 +13,7 @@ export function RootLayout({ children }: RootLayoutProps) {
       <SkipToContent />
       <div className="relative flex min-h-screen flex-col">
         <Header />
-        <main id="content" className="flex-1">
+        <main id="content" tabIndex={-1} className="flex-1">
           {children}
         </main>
         <Footer />

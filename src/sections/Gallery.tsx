@@ -6,7 +6,7 @@ import { galleryImages } from '@/data/gallery'
 
 export function Gallery() {
   return (
-    <section id="gallery" aria-labelledby="gallery-heading">
+    <section id="gallery" aria-labelledby="gallery-heading" tabIndex={-1}>
       <Section className="bg-muted/50">
         <Container>
           <SectionHeading

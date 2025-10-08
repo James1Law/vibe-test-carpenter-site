@@ -12,7 +12,7 @@ import { services } from '@/data/services'
 
 export function Services() {
   return (
-    <section id="services" aria-labelledby="services-heading">
+    <section id="services" aria-labelledby="services-heading" tabIndex={-1}>
       <Section>
         <Container>
           <SectionHeading

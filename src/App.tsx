@@ -1,11 +1,19 @@
+import { lazy, Suspense } from 'react'
 import { RootLayout } from '@/components/layout/RootLayout'
 import { SEOHead } from '@/components/SEOHead'
 import { Hero } from '@/sections/Hero'
 import { About } from '@/sections/About'
 import { Services } from '@/sections/Services'
-import { Gallery } from '@/sections/Gallery'
-import { Testimonials } from '@/sections/Testimonials'
-import { Contact } from '@/sections/Contact'
+
+// Lazy load non-critical sections for better performance
+const Gallery = lazy(() => import('@/sections/Gallery').then(module => ({ default: module.Gallery })))
+const Testimonials = lazy(() => import('@/sections/Testimonials').then(module => ({ default: module.Testimonials })))
+const Contact = lazy(() => import('@/sections/Contact').then(module => ({ default: module.Contact })))
+
+// Minimal fallback to prevent layout shift
+const SectionFallback = () => (
+  <div className="min-h-[400px] w-full" aria-hidden="true" />
+)
 
 function App() {
   return (
@@ -20,14 +28,20 @@ function App() {
       {/* Services section */}
       <Services />
 
-      {/* Gallery section */}
-      <Gallery />
+      {/* Gallery section - lazy loaded */}
+      <Suspense fallback={<SectionFallback />}>
+        <Gallery />
+      </Suspense>
 
-      {/* Testimonials section */}
-      <Testimonials />
+      {/* Testimonials section - lazy loaded */}
+      <Suspense fallback={<SectionFallback />}>
+        <Testimonials />
+      </Suspense>
 
-      {/* Contact section */}
-      <Contact />
+      {/* Contact section - lazy loaded */}
+      <Suspense fallback={<SectionFallback />}>
+        <Contact />
+      </Suspense>
     </RootLayout>
   )
 }

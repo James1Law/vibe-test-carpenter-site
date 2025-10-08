@@ -7,7 +7,7 @@ import { Quote } from 'lucide-react'
 
 export function Testimonials() {
   return (
-    <section id="testimonials" aria-labelledby="testimonials-heading">
+    <section id="testimonials" aria-labelledby="testimonials-heading" tabIndex={-1}>
       <Section>
         <Container>
           <SectionHeading

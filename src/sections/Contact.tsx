@@ -59,7 +59,7 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" aria-labelledby="contact-heading">
+    <section id="contact" aria-labelledby="contact-heading" tabIndex={-1}>
       <Section className="bg-muted/50">
         <Container>
           <SectionHeading
@@ -253,10 +253,10 @@ export function Contact() {
                   <CardTitle>Service areas</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-foreground">
                     {siteData.areaServed.join(' • ')}
                   </p>
-                  <p className="mt-4 text-sm text-muted-foreground">
+                  <p className="mt-4 text-sm text-foreground">
                     {siteData.address.city}, {siteData.address.county}{' '}
                     {siteData.address.postcode}
                   </p>
