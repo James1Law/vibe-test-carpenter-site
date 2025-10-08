@@ -1,191 +1,219 @@
-# 🧩 PRD — One-Page Carpenter & Joiner Website (Mock)
+# 🧩 PRD — Wright Angle Carpentry: One-Page Website
 
 ## 🏷 Feature Name
-One-Page Tradesperson Website (Carpentry & Joinery) — Mock Content
+
+Wright Angle Carpentry — One-Page Tradesperson Website
 
 ## 🎯 Overview
-Build a fast, mobile-first, single-page marketing site suitable for a local carpenter/joiner. The page should showcase credibility (about, services, socials), clear CTAs (call/email/WhatsApp), trust signals (testimonials/associations), and local SEO basics. Initial version uses mock content and images, ready to be swapped for real assets later.
+
+Build a fast, mobile-first, single-page marketing site for **Wright Angle Carpentry** (master joiner, 20+ years’ experience). The page must showcase credibility (About, Services, Testimonials), clear CTAs (Call/Email/WhatsApp), trust signals (badges/testimonials), and local SEO for **Wareham, Dorset, Poole, and surrounding towns**. Initial version uses real business copy with placeholder images that can be swapped later.
 
 ## 🧭 Objectives (measurable)
-- First Contentful Paint (FCP) < 1.8s on 4G (Lighthouse Mobile).
-- Lighthouse Performance ≥ 90, SEO ≥ 90, Accessibility ≥ 95.
-- Clear primary CTA (“Get a Quote”) visible above the fold.
-- Schema.org `LocalBusiness` present and valid (Rich Results test).
-- Deployed to Vercel with preview and production environments.
+
+- First Contentful Paint (FCP) < **1.8s** on 4G (Lighthouse Mobile).
+- Lighthouse: **Performance ≥ 90**, **SEO ≥ 90**, **Accessibility ≥ 95**.
+- Clear above-the-fold primary CTA (“Get a Quote”).
+- Valid **Schema.org `LocalBusiness`** (Rich Results test passes).
+- Deployed to **Vercel** with preview (PRs) and production (main).
 
 ## 👥 Target Users
-Homeowners and small businesses searching locally (Google/Maps) for carpentry/joinery services.
 
-## 📄 Content Scope (mock)
+Homeowners and small businesses in **Wareham, Dorset, Poole, and nearby towns** searching for carpentry/joinery services.
+
+## 📄 Content Scope
+
 - **Hero**: Business name, tagline, service area, CTA buttons (Call, WhatsApp, Email).
-- **About**: Short bio, years of experience, qualifications/insurance.
-- **Services**: 6–8 common services (e.g. bespoke wardrobes, kitchens, doors, skirting, decking, fitted furniture).
-- **Gallery (placeholder)**: 6–8 image cards with alt text (stock or blurred placeholders).
-- **Testimonials (placeholder)**: 3 short quotes with names/areas.
-- **Contact**: Contact form (name, email, phone, message), plus direct contact buttons; service area map embed (optional).
-- **Footer**: NAP (Name, Address, Phone), hours, social links, copyright.
+- **About**: Real copy—master joiner, **20+ years**, bespoke staircases, fitted wardrobes, custom kitchens, full renovations; trustworthy and local.
+- **Services**: 6–8 offerings (staircases, wardrobes, kitchens, alcove units, doors/skirting, decking/pergolas, renovations).
+- **Gallery (placeholder)**: 6–8 image cards with meaningful alt text; to be replaced with real photos.
+- **Testimonials (initial placeholders)**: 3 short quotes with names/areas; real reviews can replace later.
+- **Contact**: Contact form (name, email, phone, message) + direct CTAs; optional map embed.
+- **Footer**: NAP (Name, Address, Phone), hours, socials, copyright.
 
 ## ✨ Features & UX
+
 - Mobile-first, responsive layout.
-- Sticky header with “Call now” on mobile.
-- Smooth scroll to sections; skip-to-content link for accessibility.
-- Form validation with inline error messages.
-- Toast on successful form submission (mock).
+- Sticky header (mobile shows “Call now”).
+- Smooth anchor navigation; **skip-to-content** for a11y.
+- Form validation with inline errors (mock submit for now).
+- Success toast on mock submit.
 
 ## 🔎 SEO & Trust
-- Title/description, Open Graph, Twitter meta.
-- `robots.txt`, `sitemap.xml` (static for now).
-- Schema.org `LocalBusiness` JSON-LD (mock values).
-- Accessible components (ARIA labels, colour contrast).
-- Image `alt` text and `loading="lazy"`.
+
+- `<title>`/description, Open Graph, Twitter meta.
+- `robots.txt`, `sitemap.xml`.
+- **LocalBusiness JSON-LD** (use site data constants).
+- Accessible components (ARIA, contrast).
+- Image `alt` and `loading="lazy"`.
 
 ## 🛠 Technical Requirements
-- **Frontend**: React + TypeScript, TailwindCSS, Shadcn UI.
-- **Build**: Vite (mobile-first).  
-- **Forms**: `zod` + `react-hook-form`. (Submission mocked; later wire to email/API.)
+
+- **Frontend**: React + **TypeScript**, **TailwindCSS**, **Shadcn UI**.
+- **Build**: **Vite**.
+- **Forms**: `zod` + `react-hook-form` (submission mocked).
 - **Icons**: `lucide-react`.
-- **Analytics**: Placeholder for Vercel Analytics (disabled by default).
+- **Analytics**: Vercel Analytics placeholder (off by default).
 - **CI/CD**: Vercel previews on PRs; production on `main`.
 
 ## 🪜 Implementation Strategy (high level)
-1. Project bootstrap (Vite, Tailwind, Shadcn).
-2. Design system primitives (typography scale, colour tokens, spacing).
-3. Sections in order: Header/Hero → About → Services → Gallery → Testimonials → Contact → Footer.
-4. Add SEO meta and JSON-LD.
-5. Lighthouse pass and accessibility fixes.
-6. Deploy to Vercel with preview + production.
-7. Swap mock content later.
+
+1. Bootstrap (Vite, Tailwind, Shadcn).
+2. Design tokens & primitives (typography, colour, spacing).
+3. Sections in order: Header/Hero → **About** → Services → Gallery → Testimonials → Contact → Footer.
+4. SEO meta + LocalBusiness JSON-LD.
+5. Lighthouse & accessibility pass.
+6. Vercel deploys (preview + production).
+7. Swap placeholders for real assets later.
 
 ## 🧪 Success Criteria
-- Builds cleanly, deploys to Vercel.
-- Lighthouse targets met on a throttled mobile run.
-- Form validates and displays success toast (mock).
-- JSON-LD validates in Rich Results tester.
 
-## 🚫 Non-Goals (for this iteration)
-- CMS, blog, or multi-page routing.
-- Real image asset pipeline.
+- Builds cleanly; deploys to Vercel.
+- Lighthouse targets met on throttled mobile run.
+- Form validates and shows success toast (mock).
+- JSON-LD validates (Rich Results tester).
+
+## 🚫 Non-Goals (this iteration)
+
+- CMS, blog, multi-page routing.
+- Real image pipeline.
 - Real inbox/email integration.
-- Payment/booking.
+- Booking/payments.
+
+---
 
 ## 🧱 Implementation Plan
 
 ### T00 — Session Prep
-- Description: Load memory and PRD; create working branch; persist the approved plan.
-- Files likely touched/created: `tasks/carpenter-site-tasks.md`
-- Definition of Done: Memory acknowledged; PRD read; branch `feature/carpenter-onepage` checked out; plan saved and committed.
-- Commit message template: chore: initialise task plan and session branch
-- Dependencies: None
-- Ask for approval before proceeding: Yes
+
+- **Description:** Load memory and PRD; create working branch; persist the approved plan.
+- **Files:** `tasks/carpenter-site-tasks.md`
+- **DoD:** Memory acknowledged; PRD read; branch `feature/carpenter-onepage` checked out; plan saved & committed.
+- **Commit:** `chore: initialise task plan and session branch`
+- **Deps:** —
+- **Pause for approval:** Yes
 
 ### T01 — Bootstrap Vite + TS + Tailwind + Shadcn
-- Description: Initialise a fresh Vite React TS app; add Tailwind, PostCSS, Autoprefixer; install Shadcn UI CLI; configure base project structure.
-- Files likely touched/created: `package.json`, `vite.config.ts`, `tsconfig.json`, `index.html`, `postcss.config.js`, `tailwind.config.ts`, `src/main.tsx`, `src/App.tsx`, `src/index.css`
-- Definition of Done: Project starts with `dev` script; Tailwind classes render; Shadcn CLI ready.
-- Commit message template: feat(bootstrap): initialise Vite + TS + Tailwind + Shadcn scaffold
-- Dependencies: T00
-- Ask for approval before proceeding: Yes
+
+- **Description:** Initialise Vite React TS app; add Tailwind/PostCSS/Autoprefixer; install Shadcn; base structure.
+- **Files:** `package.json`, `vite.config.ts`, `tsconfig.json`, `index.html`, `postcss.config.js`, `tailwind.config.ts`, `src/main.tsx`, `src/App.tsx`, `src/index.css`
+- **DoD:** `npm run dev` works; Tailwind renders; Shadcn ready.
+- **Commit:** `feat(bootstrap): initialise Vite + TS + Tailwind + Shadcn scaffold`
+- **Deps:** T00
+- **Pause:** Yes
 
 ### T02 — Project hygiene and DX config
-- Description: Add ESLint + Prettier (with Tailwind plugin), editorconfig, path aliases, commitlint (optional), npm scripts; ensure type-check script.
-- Files likely touched/created: `.eslintrc.cjs`, `.prettierrc`, `.editorconfig`, `tsconfig.json`, `package.json`
-- Definition of Done: Lint and format run clean; `tsc --noEmit` passes.
-- Commit message template: chore(dX): configure ESLint, Prettier, TypeScript paths and scripts
-- Dependencies: T01
-- Ask for approval before proceeding: Yes
+
+- **Description:** ESLint (flat config) + Prettier (Tailwind plugin), EditorConfig, TS paths, npm scripts; ensure type-check.
+- **Files:** `eslint.config.js`, `.prettierrc`, `.editorconfig`, `.vscode/settings.json`, `tsconfig.json`, `vite.config.ts`, `package.json`
+- **DoD:** Lint/format clean; `tsc --noEmit` passes.
+- **Commit:** `chore(DX): add ESLint, Prettier (Tailwind), EditorConfig, TS paths and scripts`
+- **Deps:** T01
+- **Pause:** Yes
 
 ### T03 — Design tokens and UI primitives
-- Description: Configure Tailwind theme (typography scale, colour palette, spacing); install Shadcn primitives (button, input, textarea, form, toast, card); set global CSS. Create `src/data/site.ts` (NAP, hours, socials, contact, areaServed) and use it in header CTAs & later in JSON-LD.
-- Files likely touched/created: `tailwind.config.ts`, `src/index.css`, `src/lib/utils.ts`, `src/components/ui/*`, `src/data/site.ts`
-- Definition of Done: Tokens available; Shadcn components compile and render in a sample; `site.ts` exports used values and compiles.
-- Commit message template: feat(ui): add design tokens, Shadcn primitives, and site data module
-- Dependencies: T01, T02
-- Ask for approval before proceeding: Yes
+
+- **Description:** Configure Tailwind theme (typography palette spacing); install Shadcn primitives (button, input, textarea, form, toast, card); global CSS. Create `src/data/site.ts` (NAP, hours, socials, contact, `areaServed`) and reuse for CTAs & later JSON-LD.
+- **Files:** `tailwind.config.ts`, `src/index.css`, `src/lib/utils.ts`, `src/components/ui/*`, `src/data/site.ts`
+- **DoD:** Tokens available; primitives compile; `site.ts` exports used & compile.
+- **Commit:** `feat(ui): add design tokens, primitives, and site data module`
+- **Deps:** T01, T02
+- **Pause:** Yes
 
 ### T04 — App layout, accessibility scaffolding, and header shell
-- Description: Create `RootLayout` with skip-to-content link, responsive container, semantic landmarks; implement sticky header shell with placeholder nav.
-- Files likely touched/created: `src/components/layout/RootLayout.tsx`, `src/components/layout/Header.tsx`, `src/components/layout/Container.tsx`, `src/App.tsx`
-- Definition of Done: Landmarks present; skip link works with keyboard; header sticks on mobile.
-- Commit message template: feat(layout): add RootLayout with a11y scaffolding and sticky header
-- Dependencies: T03
-- Ask for approval before proceeding: Yes
+
+- **Description:** `RootLayout` with skip link, semantic landmarks; sticky header shell with anchors to sections.
+- **Files:** `src/components/layout/RootLayout.tsx`, `src/components/layout/Header.tsx`, `src/components/layout/Footer.tsx`, `src/App.tsx`
+- **DoD:** Landmarks present; skip link keyboard-works; sticky header on mobile.
+- **Commit:** `feat(layout): add RootLayout with a11y scaffolding and sticky header`
+- **Deps:** T03
+- **Pause:** Yes
 
 ### T05 — Hero section with primary CTAs
-- Description: Implement hero with business name, tagline, service area; add CTA buttons (Call, WhatsApp, Email) using `lucide-react`; ensure visible above the fold.
-- Files likely touched/created: `src/sections/Hero.tsx`
-- Definition of Done: CTAs are keyboard-accessible, labelled, and visible on mobile without scrolling.
-- Commit message template: feat(hero): add hero with primary CTAs and service area
-- Dependencies: T04
-- Ask for approval before proceeding: Yes
 
-### T06 — About section
-- Description: Add concise bio, years of experience, qualifications/insurance; ensure responsive typography and contrast.
-- Files likely touched/created: `src/sections/About.tsx`
-- Definition of Done: Content readable on small screens; passes basic a11y checks.
-- Commit message template: feat(about): add about section content and styles
-- Dependencies: T04
-- Ask for approval before proceeding: Yes
+- **Description:** Above-the-fold hero with **Wright Angle Carpentry** name, tagline, service area; CTAs (Call/WhatsApp/Email) using site data; visible on mobile without scrolling.
+- **Files:** `src/sections/Hero.tsx`
+- **DoD:** Keyboard-accessible CTAs; correct hrefs; h1 present.
+- **Commit:** `feat(hero): add hero with primary CTAs and service area`
+- **Deps:** T04
+- **Pause:** Yes
 
-### T07 — Services section (6–8 items)
-- Description: Grid/list of common services with concise descriptions and icons; mobile-first layout.
-- Files likely touched/created: `src/sections/Services.tsx`, `src/data/services.ts`
-- Definition of Done: Services render in 1–2 columns on mobile, 3–4 on desktop; icons have aria-hidden.
-- Commit message template: feat(services): add responsive services grid with mock data
-- Dependencies: T04
-- Ask for approval before proceeding: Yes
+### T06 — About section (real business content)
 
-### T08 — Gallery (placeholder images) with lazy-loading
-- Description: Add 6–8 placeholder images/cards with alt text; use `loading="lazy"`; ensure focus styles and keyboard navigation.
-- Files likely touched/created: `src/sections/Gallery.tsx`, `src/data/gallery.ts`, `public/images/*` (placeholders)
-- Definition of Done: Images lazy-load; alt text meaningful; layout responsive.
-- Commit message template: feat(gallery): add placeholder gallery with lazy-loaded images
-- Dependencies: T04
-- Ask for approval before proceeding: Yes
+- **Description:** Introduce **Wright Angle Carpentry** (master joiner, **20+ years**). Real copy covering bespoke staircases, fitted wardrobes, custom kitchens, full property renovations; emphasis on precision craftsmanship, reliability, and local service across **Wareham, Dorset, Poole, and surrounding towns**. Add trust badges (e.g. _Master Joiner_, _20+ Years Experience_, _Local & Reliable_, _Fully Insured_).
+- **Files:** `src/sections/About.tsx`
+- **DoD:** Readable on mobile/desktop; accessible icons; consistent typography.
+- **Commit:** `feat(about): add about section for Wright Angle Carpentry with real business content`
+- **Deps:** T04
+- **Pause:** Yes
+
+### T07 — Services section (real business offerings)
+
+- **Description:** Services grid (6–8): bespoke **staircases**, **fitted wardrobes**, **custom kitchens**, **alcove units & shelving**, **door hanging & skirting**, **garden decking & pergolas**, **full property renovations**. Icons + concise descriptions.
+- **Files:** `src/sections/Services.tsx`, `src/data/services.ts`
+- **DoD:** 1–2 cols mobile, 3–4 desktop; icons `aria-hidden`; accessible layout.
+- **Commit:** `feat(services): add Wright Angle Carpentry services grid with descriptions and icons`
+- **Deps:** T06
+- **Pause:** Yes
+
+### T08 — Gallery (project showcase)
+
+- **Description:** Placeholder grid (6–8) with meaningful alt text (“Bespoke oak staircase”, “Fitted kitchen in Poole”); lazy-loading; keyboard navigation.
+- **Files:** `src/sections/Gallery.tsx`, `src/data/gallery.ts`, `public/images/*`
+- **DoD:** Lazy images; responsive; accessible.
+- **Commit:** `feat(gallery): add Wright Angle Carpentry project gallery (placeholders)`
+- **Deps:** T07
+- **Pause:** Yes
 
 ### T09 — Testimonials section
-- Description: Add 3 short testimonials with names/areas; semantic markup (blockquote, cite); responsive card layout.
-- Files likely touched/created: `src/sections/Testimonials.tsx`, `src/data/testimonials.ts`
-- Definition of Done: Content readable; semantic elements present; passes contrast checks.
-- Commit message template: feat(testimonials): add testimonials section with semantic markup
-- Dependencies: T04
-- Ask for approval before proceeding: Yes
+
+- **Description:** 3 short quotes with names/areas (initial placeholders, e.g. _Emma — Wareham_, _David — Poole_). Use `<blockquote>` + `<cite>`.
+- **Files:** `src/sections/Testimonials.tsx`, `src/data/testimonials.ts`
+- **DoD:** Readable, semantic, balanced layout.
+- **Commit:** `feat(testimonials): add Wright Angle Carpentry testimonials with semantic markup`
+- **Deps:** T08
+- **Pause:** Yes
 
 ### T10 — Contact section with RHF + Zod and toast
-- Description: Implement contact form (name, email, phone, message) with `react-hook-form` + `zod`; inline validation errors; mock submit with success toast; include direct contact buttons.
-- Files likely touched/created: `src/sections/Contact.tsx`, `src/lib/validation/contactSchema.ts`, `src/lib/toast.ts`
-- Definition of Done: Client-side validation works; submit shows toast; buttons have proper `tel:` and `mailto:` links.
-- Commit message template: feat(contact): add validated contact form with RHF + Zod and toast
-- Dependencies: T03, T04
-- Ask for approval before proceeding: Yes
+
+- **Description:** Form (name, email, phone, message) with zod/RHF; inline errors; mock submit + success toast; direct CTAs (tel/mailto).
+- **Files:** `src/sections/Contact.tsx`, `src/lib/validation/contactSchema.ts`, `src/lib/toast.ts`
+- **DoD:** Client validation; toast on submit; direct buttons correct.
+- **Commit:** `feat(contact): add validated contact form with RHF + Zod and toast`
+- **Deps:** T03, T04
+- **Pause:** Yes
 
 ### T11 — Footer with NAP, hours, socials
-- Description: Add footer containing Name, Address, Phone, opening hours, social links, copyright.
-- Files likely touched/created: `src/components/layout/Footer.tsx`
-- Definition of Done: Links are labelled; NAP is selectable; layout adapts to mobile.
-- Commit message template: feat(footer): add footer with NAP, hours, and socials
-- Dependencies: T04
-- Ask for approval before proceeding: Yes
+
+- **Description:** Footer with Name, Address (from site data, can be partial), Phone, hours, socials, copyright.
+- **Files:** `src/components/layout/Footer.tsx`
+- **DoD:** Labelled links; selectable NAP; responsive layout.
+- **Commit:** `feat(footer): add footer with NAP, hours, and socials`
+- **Deps:** T04
+- **Pause:** Yes
 
 ### T12 — SEO meta, Open Graph, Twitter, and JSON-LD (LocalBusiness)
-- Description: Implement SEO helpers; populate `title`, `description`, OG/Twitter meta; add JSON-LD for `LocalBusiness` with mock values; add static `robots.txt` and `sitemap.xml`.
-- Files likely touched/created: `src/lib/seo.tsx` (or `seo.ts`), `index.html` (meta), `public/robots.txt`, `public/sitemap.xml`, `src/lib/structuredData.ts`
-- Definition of Done: Meta tags present; JSON-LD validates in Rich Results test; robots and sitemap served.
-- Commit message template: feat(seo): add meta, OG/Twitter cards, and LocalBusiness JSON-LD
-- Dependencies: T05–T11
-- Ask for approval before proceeding: Yes
+
+- **Description:** SEO helpers; `<title>`/description; OG/Twitter; **LocalBusiness JSON-LD** using **site data** (name, url, telephone, address, `areaServed`, `openingHoursSpecification`, `sameAs`, `image`, `priceRange`); add static `robots.txt` & `sitemap.xml`.
+- **Files:** `src/lib/seo.ts(x)`, `index.html`, `public/robots.txt`, `public/sitemap.xml`, `src/lib/structuredData.ts`
+- **DoD:** Meta present; JSON-LD validates; robots/sitemap served.
+- **Commit:** `feat(seo): add meta, OG/Twitter, and LocalBusiness JSON-LD`
+- **Deps:** T05–T11
+- **Pause:** Yes
 
 ### T13 — Performance and accessibility pass
-- Description: Optimise images (placeholders), ensure `prefers-reduced-motion` respect, audit headings order, label controls, focus management, and Lighthouse tuning to meet targets.
-- Files likely touched/created: Minor edits across sections; `src/index.css`; `index.html`
-- Definition of Done: Lighthouse Mobile: Performance ≥90, SEO ≥90, Accessibility ≥95; FCP < 1.8s on 4G.
-- Commit message template: perf(a11y): improve performance and accessibility to meet PRD targets
-- Dependencies: T05–T12
-- Ask for approval before proceeding: Yes
+
+- **Description:** Optimise images (placeholders), respect `prefers-reduced-motion`, audit headings/labels/focus, Lighthouse tuning to targets.
+- **Files:** Minor edits; `src/index.css`; `index.html`
+- **DoD:** Lighthouse Mobile: Perf ≥ 90, SEO ≥ 90, A11y ≥ 95; FCP < 1.8s.
+- **Commit:** `perf(a11y): improve performance and accessibility to meet PRD targets`
+- **Deps:** T05–T12
+- **Pause:** Yes
 
 ### T14 — Vercel deploy (preview + production) and release notes
-- Description: Add Vercel project settings, preview deployments on PRs, production on `main`; optional analytics placeholder disabled; write concise README with usage and content swap instructions.
-- Files likely touched/created: `vercel.json` (if needed), `README.md`, environment settings in Vercel
-- Definition of Done: Preview URL on PR; production deploy succeeds; README includes quickstart and content swap guidance.
-- Commit message template: chore(deploy): configure Vercel previews and production + README
-- Dependencies: T01–T13
-- Ask for approval before proceeding: Yes
+
+- **Description:** Confirm Vercel project settings; previews on PRs; production on `main`. Add concise README with usage and content-swap instructions.
+- **Files:** `vercel.json` (if needed), `README.md`, Vercel settings
+- **DoD:** Preview URL on PR; production deploy succeeds; README quickstart ready.
+- **Commit:** `chore(deploy): configure Vercel previews and production + README`
+- **Deps:** T01–T13
+- **Pause:** Yes

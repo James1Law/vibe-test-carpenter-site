@@ -1,0 +1,21 @@
+PLACEHOLDER_OG_IMAGE_1200x630
+<!-- 
+  REPLACE WITH ACTUAL OG IMAGE (1200x630px JPEG, ≤150 KB)
+  
+  Design suggestions:
+  - Background: #0f172a (brand dark blue) or subtle wood texture
+  - Text: "Wright Angle Carpentry" (large, white, bold)
+  - Subtitle: "Bespoke Joinery in Dorset" (smaller, white/light)
+  - Optional: Carpenter icon (hammer, saw, or woodworking symbol)
+  
+  Generate using:
+  - Figma/Canva (export as JPEG, quality 85%)
+  - https://www.opengraph.xyz/
+  - OR automated: https://github.com/vercel/og-image
+  
+  Test after creation:
+  - https://www.opengraph.xyz/url/
+  - Twitter Card Validator
+  - Facebook Sharing Debugger
+-->
+

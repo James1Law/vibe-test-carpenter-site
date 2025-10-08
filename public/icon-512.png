@@ -1,0 +1,7 @@
+PLACEHOLDER_PNG_512x512
+<!-- NOTE: Replace with actual 512x512 PNG icon. 
+     Generate from favicon.svg using: 
+     - https://realfavicongenerator.net 
+     - OR: npx sharp-cli -i public/favicon.svg -o public/icon-512.png resize 512 512
+-->
+
