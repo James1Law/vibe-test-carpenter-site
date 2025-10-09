@@ -32,7 +32,7 @@ interface LocalBusiness {
 }
 
 export function localBusinessJsonLd(
-  canonicalUrl: string = 'https://wrightanglecarpentry.vercel.app'
+  canonicalUrl: string = 'https://www.wrightanglecarpentry.co.uk'
 ): LocalBusiness {
   // Build opening hours specification
   const openingHours: OpeningHoursSpec[] = []
@@ -85,7 +85,7 @@ export function localBusinessJsonLd(
     description: siteData.description,
     url: canonicalUrl,
     image: `${canonicalUrl}/og-image.jpg`,
-    telephone: siteData.contact.phone,
+    telephone: siteData.contact.phoneE164,
     email: siteData.contact.email,
     address: {
       '@type': 'PostalAddress',

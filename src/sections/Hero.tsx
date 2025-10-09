@@ -4,9 +4,9 @@ import { siteData } from '@/data/site'
 import { Phone, Mail, MessageCircle, Shield, Award, MapPin } from 'lucide-react'
 
 export function Hero() {
-  const phoneHref = `tel:${siteData.contact.phone.replace(/\s/g, '')}`
+  const phoneHref = `tel:${siteData.contact.phoneE164}`
   const emailHref = `mailto:${siteData.contact.email}?subject=${encodeURIComponent('Quote request')}`
-  const whatsappHref = `https://wa.me/${siteData.contact.whatsapp.replace(/\+/g, '')}?text=${encodeURIComponent("Hi there, I'd like a quote")}`
+  const whatsappHref = `https://wa.me/${siteData.contact.whatsapp.replace(/\+/g, '')}?text=${encodeURIComponent("Hi James, I'd like a quote for joinery work.")}`
 
   return (
     <section
@@ -72,7 +72,7 @@ export function Hero() {
             >
               <a
                 href={phoneHref}
-                aria-label={`Call us at ${siteData.contact.phone}`}
+                aria-label={`Call us at ${siteData.contact.phoneDisplay}`}
               >
                 <Phone className="mr-2 h-5 w-5" />
                 Call Now

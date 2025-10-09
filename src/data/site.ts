@@ -5,20 +5,21 @@ export const siteData = {
     'Master joinery practice with 20+ years experience delivering precise, made-to-measure work for homes across Wareham, Poole, Dorset and surrounding towns.',
 
   contact: {
-    phone: '01234 567890',
-    email: 'hello@wrightanglecarpentry.co.uk',
-    whatsapp: '+441234567890',
+    phoneDisplay: '07753 958 395',
+    phoneE164: '+447753958395',
+    email: 'james@wrightanglecarpentry.co.uk',
+    whatsapp: '+447753958395',
   },
 
   address: {
-    street: '123 High Street',
+    street: 'Woodside Cottage, Carey Road',
     city: 'Wareham',
     county: 'Dorset',
-    postcode: 'BH20 4AA',
+    postcode: 'BH20 7PB',
     country: 'United Kingdom',
   },
 
-  areaServed: ['Wareham', 'Poole', 'Dorset', 'Surrounding towns'],
+  areaServed: ['Wareham', 'Poole', 'Dorset', 'surrounding towns'],
 
   hours: {
     monday: '8:00 AM – 6:00 PM',
@@ -31,8 +32,8 @@ export const siteData = {
   },
 
   socials: {
-    facebook: 'https://facebook.com/wrightanglecarpentry',
-    instagram: 'https://instagram.com/wrightanglecarpentry',
+    facebook: 'https://www.facebook.com/p/Wright-Angle-Carpentry-100068082019115/',
+    instagram: 'https://www.instagram.com/wright_angle_carpentry/',
     linkedin: null,
     twitter: null,
   },

@@ -27,9 +27,9 @@ import { Phone, Mail, MessageCircle, Send } from 'lucide-react'
 export function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const phoneHref = `tel:${siteData.contact.phone.replace(/\s/g, '')}`
+  const phoneHref = `tel:${siteData.contact.phoneE164}`
   const emailHref = `mailto:${siteData.contact.email}?subject=${encodeURIComponent('Quote request')}`
-  const whatsappHref = `https://wa.me/${siteData.contact.whatsapp.replace(/\+/g, '')}?text=${encodeURIComponent("Hi, I'd like a quote for joinery work")}`
+  const whatsappHref = `https://wa.me/${siteData.contact.whatsapp.replace(/\+/g, '')}?text=${encodeURIComponent("Hi James, I'd like a quote for joinery work.")}`
 
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
@@ -44,18 +44,36 @@ export function Contact() {
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true)
 
-    // Mock API call - replace with actual submission later
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    try {
+      const response = await fetch('/api/sendEmail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
 
-    console.log('Form submitted:', data)
+      const result = await response.json()
 
-    toast.success("Thanks — we'll get back to you shortly.", {
-      description: 'Your message has been received.',
-      duration: 5000,
-    })
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to send message')
+      }
 
-    form.reset()
-    setIsSubmitting(false)
+      toast.success("Thanks — we'll get back to you shortly.", {
+        description: 'Your message has been sent successfully.',
+        duration: 5000,
+      })
+
+      form.reset()
+    } catch (error) {
+      console.error('Form submission error:', error)
+      toast.error('There was a problem sending your message.', {
+        description: 'Please try again later or contact us directly.',
+        duration: 5000,
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -131,7 +149,7 @@ export function Contact() {
                           <FormControl>
                             <Input
                               type="tel"
-                              placeholder="01234 567890"
+                              placeholder="07753 958 395"
                               {...field}
                               disabled={isSubmitting}
                             />
@@ -194,13 +212,13 @@ export function Contact() {
                   >
                     <a
                       href={phoneHref}
-                      aria-label={`Call us at ${siteData.contact.phone}`}
+                      aria-label={`Call us at ${siteData.contact.phoneDisplay}`}
                     >
                       <Phone className="mr-3 h-5 w-5" />
                       <div className="text-left">
                         <div className="text-sm font-medium">Call us</div>
                         <div className="text-sm text-muted-foreground">
-                          {siteData.contact.phone}
+                          {siteData.contact.phoneDisplay}
                         </div>
                       </div>
                     </a>

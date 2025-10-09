@@ -167,6 +167,71 @@ Add to `index.html`:
 
 ---
 
+## 📧 Contact Form / Email Integration
+
+The contact form uses **Resend API** to deliver enquiries to `james@wrightanglecarpentry.co.uk`.
+
+### Setup for Production
+
+1. **Get Resend API Key:**
+   - Sign up at [resend.com](https://resend.com)
+   - Create API key at [resend.com/api-keys](https://resend.com/api-keys)
+
+2. **Configure Environment Variables in Vercel:**
+   - Go to Vercel Project → Settings → Environment Variables
+   - Add these variables:
+   
+   | Variable | Value | Required | Environments |
+   |----------|-------|----------|--------------|
+   | `RESEND_API_KEY` | Your Resend API key (e.g., `re_...`) | Yes | Preview + Production |
+   | `RESEND_FROM` | Sender email (default: `Wright Angle Carpentry <onboarding@resend.dev>`) | No | Preview + Production |
+   | `RESEND_TO` | Recipient email (default: `james@wrightanglecarpentry.co.uk`) | No | Preview + Production |
+
+   **Note:** `RESEND_FROM` uses `onboarding@resend.dev` (verified domain) by default. Once you verify `wrightanglecarpentry.co.uk` in Resend, update to `Wright Angle Carpentry <noreply@wrightanglecarpentry.co.uk>`.
+
+3. **Verify Domain (Optional, for branded sender):**
+   - Go to [Resend Domains](https://resend.com/domains)
+   - Add `wrightanglecarpentry.co.uk`
+   - Add DNS records as instructed
+   - Once verified, update `RESEND_FROM` in Vercel
+
+4. **Redeploy:**
+   ```bash
+   git push origin feature/carpenter-onepage
+   ```
+   Vercel will automatically redeploy with the new environment variables.
+
+### Local Development
+
+For local testing, create a `.env` file (not committed):
+```bash
+RESEND_API_KEY=your_api_key_here
+RESEND_FROM=Wright Angle Carpentry <onboarding@resend.dev>
+RESEND_TO=james@wrightanglecarpentry.co.uk
+```
+
+**Note:** The API endpoint (`/api/sendEmail.ts`) is a Vercel serverless function. Local development requires Vercel CLI:
+```bash
+vercel dev
+```
+
+### How It Works
+
+- Form submission POSTs to `/api/sendEmail`
+- Request validated with Zod schema
+- Email sent via Resend API to `james@wrightanglecarpentry.co.uk`
+- Reply-to set to submitter's email
+- Success/error toasts displayed to user
+
+### Testing
+
+1. Fill out contact form on deployed site
+2. Submit and verify success toast appears
+3. Check `james@wrightanglecarpentry.co.uk` inbox for email
+4. Verify reply-to address is set to submitter's email
+
+---
+
 ## 🚢 Deployment
 
 ### Vercel (Recommended)

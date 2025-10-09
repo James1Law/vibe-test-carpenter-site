@@ -17,7 +17,7 @@ const socialLabels = {
 }
 
 export function Footer() {
-  const phoneHref = `tel:${siteData.contact.phone.replace(/\s/g, '')}`
+  const phoneHref = `tel:${siteData.contact.phoneE164}`
 
   const activeSocials = Object.entries(siteData.socials)
     .filter(([_, url]) => url !== null && url !== '')
@@ -45,9 +45,9 @@ export function Footer() {
                 <a
                   href={phoneHref}
                   className="hover:text-foreground"
-                  aria-label={`Call us at ${siteData.contact.phone}`}
+                  aria-label={`Call us at ${siteData.contact.phoneDisplay}`}
                 >
-                  {siteData.contact.phone}
+                  {siteData.contact.phoneDisplay}
                 </a>
               </p>
               <p>
