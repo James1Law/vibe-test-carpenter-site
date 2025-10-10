@@ -17,7 +17,7 @@ export function Logo({ size = 'md', className, showText = true }: LogoProps) {
   return (
     <a
       href="#"
-      className="flex items-center gap-2 transition-opacity hover:opacity-80"
+      className="flex items-center gap-1 transition-opacity hover:opacity-80"
       aria-label={`${siteData.name} - Return to top`}
     >
       <img
