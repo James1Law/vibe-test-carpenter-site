@@ -9,6 +9,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 import { Container } from '@/components/common/Container'
+import { Logo } from '@/components/common/Logo'
 import { siteData } from '@/data/site'
 import { Menu, Phone, Mail, MessageCircle } from 'lucide-react'
 
@@ -31,15 +32,10 @@ export function Header() {
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <Container>
         <div className="flex h-16 items-center justify-between gap-4">
-          {/* Brand */}
-          <div className="flex items-center gap-2">
-            <a
-              href="#"
-              className="text-lg font-bold tracking-tight hover:text-primary"
-            >
-              {siteData.name}
-            </a>
-          </div>
+          {/* Brand - Logo + Text */}
+          <Logo size="md" showText={true} className="hidden sm:flex" />
+          {/* Mobile: Logo only (smaller) */}
+          <Logo size="sm" showText={false} className="flex sm:hidden" />
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex md:gap-6" aria-label="Main">
