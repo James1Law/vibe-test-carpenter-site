@@ -44,7 +44,7 @@ npm run preview
 ```
 src/
 ├── components/
-│   ├── common/          # Container, Section, SectionHeading
+│   ├── common/          # Container, Section, SectionHeading, Logo
 │   ├── layout/          # Header, Footer, RootLayout, SkipToContent
 │   └── ui/              # Shadcn UI components (button, card, form, etc.)
 ├── data/
@@ -97,6 +97,35 @@ Update domain in:
 ---
 
 ## 🎨 Branding & Assets
+
+### Company Logo
+
+**Current logo:** `public/WA Logo.png`
+- **Dimensions:** 585×427px (aspect ratio ~1.37:1)
+- **Size:** 43 KB PNG with transparency
+- **Usage:** Integrated in Header via `<Logo />` component
+
+**Logo Component:**
+- **Location:** `src/components/common/Logo.tsx`
+- **Size variants:** `sm` (32px), `md` (40px), `lg` (48px)
+- **Props:** `size`, `showText`, `className`
+- **Optimization:** Uses `-webkit-optimize-contrast` for crisp rendering
+
+**Display recommendations:**
+- **Header:** 40px height (desktop), 32px (mobile)
+- **Maximum:** 150px width to avoid pixelation
+- **Future upgrade:** Replace with 1200×800px or SVG for higher quality
+
+**Usage example:**
+```tsx
+import { Logo } from '@/components/common/Logo'
+
+// Header - logo + text
+<Logo size="md" showText={true} />
+
+// Mobile - logo only
+<Logo size="sm" showText={false} />
+```
 
 ### Favicon & Icons
 
@@ -331,14 +360,17 @@ npx serve dist
 
 **Build output:**
 ```
-dist/assets/index-*.css          ~5.4 KB gzip
-dist/assets/react-*.js          ~45.5 KB gzip
-dist/assets/index-*.js          ~36.9 KB gzip
-dist/assets/Gallery-*.js         ~1.2 KB gzip (lazy)
-dist/assets/Testimonials-*.js    ~0.7 KB gzip (lazy)
-dist/assets/Contact-*.js         ~3.2 KB gzip (lazy)
-dist/assets/forms-*.js          ~22.3 KB gzip (lazy)
+dist/assets/index-*.css          ~5.45 KB gzip
+dist/assets/react-*.js          ~45.48 KB gzip
+dist/assets/index-*.js          ~37.12 KB gzip
+dist/assets/Gallery-*.js         ~1.17 KB gzip (lazy)
+dist/assets/Testimonials-*.js    ~0.73 KB gzip (lazy)
+dist/assets/Contact-*.js         ~3.33 KB gzip (lazy)
+dist/assets/forms-*.js          ~22.28 KB gzip (lazy)
+dist/assets/ui-*.js              ~2.91 KB gzip
 ```
+
+**Note:** Logo asset (`WA Logo.png`) adds 43 KB to initial page load, bringing total initial payload to ~133 KB gzipped.
 
 ---
 
