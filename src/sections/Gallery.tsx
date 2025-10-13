@@ -47,7 +47,7 @@ export function Gallery() {
 
           <div className="mt-8 text-center">
             <p className="text-sm text-muted-foreground">
-              Placeholder images — to be replaced with project photography
+              Gallery showcasing our range of carpentry and joinery services
             </p>
           </div>
         </Container>
