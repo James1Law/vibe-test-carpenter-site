@@ -21,7 +21,7 @@ export function buildMeta(options: {
 }): SEOMeta {
   const canonical =
     options.canonical || 'https://www.wrightanglecarpentry.co.uk'
-  const image = options.image || `${canonical}/og-image.jpg`
+  const image = options.image || `${canonical}/og-image.png`
 
   return {
     title: options.title,

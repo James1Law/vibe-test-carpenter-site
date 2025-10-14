@@ -21,7 +21,7 @@ export function Logo({ size = 'md', className, showText = true }: LogoProps) {
       aria-label={`${siteData.name} - Return to top`}
     >
       <img
-        src="/WA Logo.png"
+        src="/wa-logo.png"
         alt="Wright Angle Carpentry Logo"
         className={cn('logo w-auto', sizeClasses[size], className)}
         loading="eager"
