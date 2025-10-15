@@ -42,7 +42,7 @@ export function About() {
               </strong>{' '}
               is a master joinery practice with over{' '}
               <strong className="font-semibold text-foreground">
-                20 years' experience
+                20+ years' experience
               </strong>{' '}
               creating bespoke fitted furniture and structural carpentry for homes across{' '}
               <strong className="font-semibold text-foreground">
