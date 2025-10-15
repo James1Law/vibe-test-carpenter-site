@@ -40,19 +40,19 @@ export function About() {
               <strong className="font-semibold text-foreground">
                 {siteData.name}
               </strong>{' '}
-              is a master joinery practice with{' '}
+              is a master joinery practice with over{' '}
               <strong className="font-semibold text-foreground">
-                20+ years' experience
-              </strong>
-              , delivering precise, made-to-measure work for homes across{' '}
+                20 years' experience
+              </strong>{' '}
+              creating bespoke fitted furniture and structural carpentry for homes across{' '}
               <strong className="font-semibold text-foreground">
-                {siteData.areaServed.join(', ')}
+                {siteData.areaServed.slice(0, -1).join(', ')}
               </strong>
               .
             </p>
 
             <p className="text-lg leading-relaxed text-foreground">
-              From{' '}
+              Founded by James Wright in 2004, the practice specialises in traditional joinery techniques combined with contemporary design. From{' '}
               <strong className="font-semibold text-foreground">
                 bespoke staircases
               </strong>{' '}
@@ -62,7 +62,7 @@ export function About() {
               </strong>{' '}
               to{' '}
               <strong className="font-semibold text-foreground">
-                custom kitchens
+                handcrafted kitchens
               </strong>
               ,{' '}
               <strong className="font-semibold text-foreground">
@@ -70,15 +70,13 @@ export function About() {
               </strong>{' '}
               and{' '}
               <strong className="font-semibold text-foreground">
-                full property renovations
+                complete property renovations
               </strong>
-              , every project is built to last with exceptional attention to
-              detail.
+              , every piece is built to last with meticulous attention to detail.
             </p>
 
             <p className="text-base leading-relaxed text-foreground">
-              Fully insured, punctual and tidy on site — with clear
-              communication from first quote to final handover.
+              As a sole trader, you work directly with James Wright throughout your project — ensuring consistent quality, clear communication, and a personal service from initial quote to final installation.
             </p>
           </div>
 

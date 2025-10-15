@@ -2,7 +2,7 @@ export const siteData = {
   name: 'Wright Angle Carpentry',
   tagline: 'Bespoke joinery and fitted furniture across Dorset',
   description:
-    'Master joinery practice with 20+ years experience delivering precise, made-to-measure work for homes across Wareham, Poole, Dorset and surrounding towns.',
+    'Master joiner with 20+ years creating bespoke staircases, fitted wardrobes, and custom kitchens across Wareham, Poole & Dorset. Quality guaranteed.',
 
   contact: {
     phoneDisplay: '07753 958 395',
