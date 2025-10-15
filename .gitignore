@@ -6,6 +6,7 @@ dist/
 
 # Cursor & local AI stuff
 .mcp-memory/
+.cursor/mcp.json
 
 # Vercel
 .vercel/
