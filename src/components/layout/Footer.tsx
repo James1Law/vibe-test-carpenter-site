@@ -33,10 +33,9 @@ export function Footer() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {/* NAP - Name, Address, Phone */}
           <div>
-            <Logo size="sm" className="mb-3" />
-            <h2 id="site-footer" className="mb-4 text-lg font-semibold">
-              {siteData.name}
-            </h2>
+            <div id="site-footer" className="mb-4">
+              <Logo size="sm" />
+            </div>
             <address className="text-sm not-italic text-muted-foreground">
               {siteData.address.street && <p>{siteData.address.street}</p>}
               <p>{siteData.address.city}</p>

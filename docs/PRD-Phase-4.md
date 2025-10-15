@@ -338,17 +338,92 @@ Elevate the production site from "functional" to "professional showcase" by repl
 
 ---
 
+### 8️⃣ Footer Layout Refinement
+
+**Purpose:** Optimize footer layout to reduce redundancy and improve visual alignment.
+
+**Current State:**
+- Logo appears above company name in NAP section
+- Company name appears twice (as h2 heading and repeated below)
+- Logo baseline sits slightly higher than company name text baseline
+
+**Target State:**
+- Logo and company name appear on same line (horizontally aligned)
+- Company name only appears once
+- Logo vertically centered with text baseline
+
+**Implementation Tasks:**
+
+**T27-1: Remove Duplicate Company Name**
+- Keep h2 heading "Wright Angle Carpentry"
+- Remove duplicate company name display
+- Ensure semantic heading structure remains intact
+
+**T27-2: Horizontal Layout with Vertical Alignment**
+- Position logo next to (left of) company name
+- Align logo baseline with text baseline
+- Adjust spacing between logo and text
+- Ensure responsive behavior on mobile
+
+**Acceptance Criteria:**
+- ✅ Logo and company name on same line
+- ✅ No duplicate company name
+- ✅ Logo vertically aligned with text baseline
+- ✅ Proper spacing maintained
+- ✅ Responsive on all screen sizes
+
+**Status:** ✅ Complete
+
+---
+
+### 9️⃣ Hero Section Mobile Layout Bug Fix
+
+**Purpose:** Fix MapPin icon misalignment on mobile viewport in Hero section.
+
+**Bug Description:**
+- The MapPin icon next to "Proudly serving Wareham, Poole, Dorset, surrounding towns" is skewed/shifted to the left on mobile screens
+- Located in `src/sections/Hero.tsx` at line 30-33
+- Icon and text are in a flex container with `justify-center` but text wrapping on mobile causes misalignment
+
+**Root Cause:**
+The flex container with `items-center justify-center gap-2` doesn't handle text wrapping properly on narrow mobile screens. When the service area text wraps to multiple lines, the icon remains vertically centered to the entire flex container rather than aligning with the first line of text.
+
+**Implementation Tasks:**
+
+**T28-1: Fix Mobile Text Wrapping**
+- Adjust flex container to handle multi-line text properly
+- Consider centering the entire flex container as a block
+- Ensure icon stays aligned with first line of text or centered with full text block
+- Test on various mobile viewport widths (320px, 375px, 414px)
+
+**T28-2: Alternative Layout for Mobile**
+- Consider responsive layout changes for mobile:
+  - Stack icon above text on very small screens
+  - Remove icon on mobile (keep desktop only)
+  - Use responsive padding/margin adjustments
+
+**Acceptance Criteria:**
+- ✅ MapPin icon properly aligned on mobile viewports
+- ✅ No horizontal overflow or skewing
+- ✅ Text wraps gracefully without breaking layout
+- ✅ Desktop layout unaffected
+- ✅ Tested on mobile browsers (Safari iOS, Chrome Android)
+
+---
+
 ## 📋 Task Summary
 
-| Task | Description | Estimated Time | Dependencies |
-|------|-------------|----------------|--------------|
-| **T20** | Real Project Gallery | 2-3 hours | Image collection |
-| **T21** | Authentic Testimonials | 1-2 hours | Client outreach |
-| **T22** | Service Descriptions | 1 hour | James input |
-| **T23** | OG Image Creation | 1 hour | Logo asset |
-| **T24** | Favicon Generation | 30 mins | Logo asset |
-| **T25** | Content Polish | 1-2 hours | — |
-| **T26** | Performance & SEO | 1 hour | T20-T25 |
+| Task | Description | Estimated Time | Dependencies | Status |
+|------|-------------|----------------|--------------|--------|
+| **T20** | Real Project Gallery | 2-3 hours | Image collection | ✅ Complete |
+| **T21** | Authentic Testimonials | 1-2 hours | Client outreach | Pending |
+| **T22** | Service Descriptions | 1 hour | James input | Pending |
+| **T23** | OG Image Creation | 1 hour | Logo asset | ✅ Complete |
+| **T24** | Favicon Generation | 30 mins | Logo asset | ✅ Complete |
+| **T25** | Content Polish | 1-2 hours | — | Pending |
+| **T26** | Performance & SEO | 1 hour | T20-T25 | Pending |
+| **T27** | Footer Layout Refinement | 15 mins | T24 | ✅ Complete |
+| **T28** | Hero Mobile Bug Fix | 15 mins | — | In Progress |
 
 **Total Estimated Time:** 7-10 hours (excluding content collection time)
 

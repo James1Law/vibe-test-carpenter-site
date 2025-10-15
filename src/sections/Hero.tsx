@@ -27,10 +27,12 @@ export function Hero() {
           <p className="mb-4 text-xl text-primary-foreground/90 md:text-2xl">
             {siteData.tagline}
           </p>
-          <p className="mb-8 flex items-center justify-center gap-2 text-lg text-primary-foreground/80">
-            <MapPin className="h-5 w-5" aria-hidden="true" />
-            Proudly serving {siteData.areaServed.join(', ')}
-          </p>
+          <div className="mb-8 flex justify-center">
+            <p className="flex items-center gap-2 text-lg text-primary-foreground/80">
+              <MapPin className="h-5 w-5 flex-shrink-0" aria-hidden="true" />
+              <span>Proudly serving {siteData.areaServed.join(', ')}</span>
+            </p>
+          </div>
 
           {/* Trust Bullets */}
           <div className="mb-10 flex flex-wrap items-center justify-center gap-6 text-sm font-medium text-primary-foreground/90">
