@@ -52,7 +52,7 @@ export function About() {
             </p>
 
             <p className="text-lg leading-relaxed text-foreground">
-              Founded by James Law in 2004, the practice specialises in traditional joinery techniques combined with contemporary design. From{' '}
+              Founded by James Wright in 2004, the practice specialises in traditional joinery techniques combined with contemporary design. From{' '}
               <strong className="font-semibold text-foreground">
                 bespoke staircases
               </strong>{' '}
@@ -76,7 +76,7 @@ export function About() {
             </p>
 
             <p className="text-base leading-relaxed text-foreground">
-              As a sole trader, you work directly with James throughout your project — ensuring consistent quality, clear communication, and a personal service from initial quote to final installation.
+              As a sole trader, you work directly with James Wright throughout your project — ensuring consistent quality, clear communication, and a personal service from initial quote to final installation.
             </p>
           </div>
 
