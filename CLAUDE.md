@@ -26,6 +26,55 @@ vercel --prod            # Deploy to Vercel production
 vercel dev               # Test serverless functions locally
 ```
 
+### Testing
+```bash
+npm run test             # Run unit tests in watch mode
+npm run test:unit        # Run unit tests once
+npm run test:coverage    # Run with coverage report
+npm run test:e2e         # Run Playwright E2E tests
+make test-ci             # Run tests with coverage for CI
+make baseline-coverage   # Save coverage baseline for comparison
+```
+
+### Claude Code Usage Tracking
+
+Track Claude Code token usage and costs using [ccusage](https://ccusage.com):
+
+```bash
+# Daily usage report with model breakdown
+npx ccusage@latest daily --breakdown
+
+# Monthly aggregated report
+npx ccusage@latest monthly
+
+# Weekly report
+npx ccusage@latest weekly
+
+# Session-based report (most recent first)
+npx ccusage@latest session --order desc
+
+# 5-hour billing blocks with live monitoring
+npx ccusage@latest blocks --live
+
+# Filter by date range (YYYYMMDD format)
+npx ccusage@latest daily --since 20251001 --until 20251031
+
+# JSON output for scripting
+npx ccusage@latest monthly --json
+
+# Show usage by project/instance
+npx ccusage@latest daily --instances
+```
+
+**Key Features:**
+- All analysis runs locally (no data sent to external servers)
+- Tracks token consumption (input, output, cache create/read)
+- Calculates costs across all Claude models (Opus, Sonnet, Haiku)
+- Real-time monitoring with live dashboard
+- Supports filtering by date range and project
+
+**Privacy:** ccusage reads Claude Code logs from `~/.claudefiles/` locally only.
+
 ## Architecture
 
 ### Data-Driven Content
