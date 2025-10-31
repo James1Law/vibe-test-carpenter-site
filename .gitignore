@@ -4,9 +4,11 @@ dist/
 .env
 .DS_Store
 
-# Cursor & local AI stuff
-.mcp-memory/
-.cursor/mcp.json
+# Testing
+test-results/
+playwright-report/
+playwright/.cache/
+coverage/
 
 # Vercel
 .vercel/
@@ -19,4 +21,9 @@ dist/
 
 # Cursor
 .cursor/.cursor/
-memory.json
+
+# Claude Code
+.claude/
+
+# Testing baseline (temporary)
+baseline-coverage.txt
