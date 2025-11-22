@@ -11,6 +11,7 @@ import {
 import { Container } from '@/components/common/Container'
 import { Logo } from '@/components/common/Logo'
 import { siteData } from '@/data/site'
+import { scrollToSection } from '@/lib/scrollToSection'
 import { Menu, Phone, Mail, MessageCircle } from 'lucide-react'
 
 const navLinks = [
@@ -28,6 +29,25 @@ export function Header() {
   const emailHref = `mailto:${siteData.contact.email}?subject=${encodeURIComponent('Quote Request')}`
   const whatsappHref = `https://wa.me/${siteData.contact.whatsapp.replace(/\+/g, '')}?text=${encodeURIComponent("Hi James, I'd like a quote for joinery work.")}`
 
+  /**
+   * Handle navigation link clicks with programmatic scrolling
+   * Fixes race condition between drawer close and lazy-loaded sections
+   */
+  const handleNavClick = async (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    e.preventDefault()
+
+    // Start scrolling to section (handles lazy loading)
+    await scrollToSection(href)
+
+    // Close mobile menu after scroll initiates (300ms delay for smooth UX)
+    setTimeout(() => {
+      setMobileMenuOpen(false)
+    }, 300)
+  }
+
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <Container>
@@ -43,6 +63,7 @@ export function Header() {
               <a
                 key={link.href}
                 href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
                 className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
               >
                 {link.label}
@@ -116,7 +137,7 @@ export function Header() {
                       <a
                         key={link.href}
                         href={link.href}
-                        onClick={() => setMobileMenuOpen(false)}
+                        onClick={(e) => handleNavClick(e, link.href)}
                         className="text-lg font-medium transition-colors hover:text-primary"
                       >
                         {link.label}

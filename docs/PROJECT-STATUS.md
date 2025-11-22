@@ -155,6 +155,46 @@ One-page marketing website for Wright Angle Carpentry, a master joinery business
 
 ---
 
+### Emergency Bug Fix: Mobile Drawer Navigation (November 22, 2025)
+**Status:** ✅ Complete & Ready for Deployment
+
+**Issue:**
+Production bug where mobile drawer navigation did not scroll to sections when users clicked navigation links. Bug only manifested in production builds, not in development.
+
+**Root Causes:**
+1. **Lazy Loading Race Condition** - Gallery, Testimonials, and Contact sections lazy-loaded, causing scroll targets to not exist when navigation occurred
+2. **Drawer Close Timing** - Sheet component close animation interrupted native hash navigation in optimized production builds
+
+**Solution:**
+Implemented programmatic smooth scrolling with lazy loading support:
+- Created `src/lib/scrollToSection.ts` utility with MutationObserver to wait for lazy sections
+- Updated `src/components/layout/Header.tsx` navigation handlers
+- Prevented default hash behavior and controlled scroll timing
+- Delayed drawer close by 300ms after scroll initiates
+
+**Technical Details:**
+- Waits up to 2 seconds for lazy sections to load before scrolling
+- Uses `scrollIntoView` with smooth behavior
+- Updates URL hash via `history.replaceState`
+- Applies to both desktop and mobile navigation
+
+**Files Changed:**
+- `src/lib/scrollToSection.ts` (new)
+- `src/components/layout/Header.tsx` (modified)
+
+**Testing:**
+- ✅ TypeScript type-check passed
+- ✅ Production build succeeded
+- ✅ All section IDs verified
+- ✅ Preview build tested locally
+
+**Impact:**
+- Fixes critical UX issue preventing mobile users from navigating site
+- Ensures consistent behavior across dev and production
+- Improves perceived performance with smooth scrolling
+
+---
+
 ## 🏗️ Current Architecture
 
 ### Tech Stack
@@ -422,7 +462,7 @@ All MCP servers use environment variables for credentials.
 - ⚠️ **Error Tracking:** No error monitoring (Sentry, etc.)
 
 ### Infrastructure
-- ⚠️ **Email Sender:** Using Resend onboarding domain (needs custom domain verification)
+- 🚨 **CRITICAL - Email Sender:** Using Resend onboarding domain (BLOCKED: needs domain transfer from Adrian → custom domain verification)
 - ⚠️ **CDN:** Images served from Vercel (consider Cloudinary/Imgix for optimization)
 - ⚠️ **CMS:** Static content in code (no CMS for non-technical updates)
 
@@ -430,35 +470,44 @@ All MCP servers use environment variables for credentials.
 
 ## 🚀 Recommended Next Steps
 
+### 🚨 CRITICAL Priority (BLOCKED)
+1. **Production Contact Form Setup (T29)** - See PRD-Phase-5.md
+   - **Status:** BLOCKED - Domain transfer from Adrian in progress
+   - **Action Required:** Monitor email for Namecheap transfer notification
+   - **Steps when unblocked:**
+     1. Accept domain transfer in Namecheap
+     2. Connect domain to Vercel (DNS configuration)
+     3. Verify domain in Resend (SPF, DKIM, DMARC records)
+     4. Update Vercel environment variables (RESEND_FROM)
+     5. Production test email deliverability
+   - **Why Critical:** Contact form is primary conversion point - currently using temporary sender domain
+   - **Estimated Time:** 1 hour active work + waiting for DNS/verification
+   - **Reference:** Full guide provided to James; details in PRD-Phase-5.md section 0️⃣
+
 ### High Priority (Phase 5)
-1. **Increase Test Coverage**
+2. **Increase Test Coverage**
    - Add component tests for all sections
    - Add unit tests for utilities (seo.ts, structuredData.ts)
    - E2E tests for gallery and navigation
    - Target: 80%+ coverage across the board
 
-2. **Real Testimonials**
+3. **Real Testimonials**
    - Client outreach and testimonial collection
    - Replace placeholder testimonials
    - Consider Google Reviews integration
 
-3. **Analytics & Monitoring**
+4. **Analytics & Monitoring**
    - Vercel Analytics or Plausible.io
    - Core Web Vitals monitoring
    - Contact form conversion tracking
    - Error monitoring (Sentry)
 
 ### Medium Priority
-4. **Performance Optimization**
+5. **Performance Optimization**
    - Image CDN integration (Cloudinary)
    - WebP with fallbacks
    - Further code splitting
    - Service Worker for offline support
-
-5. **Email Domain Setup**
-   - Verify wrightanglecarpentry.co.uk in Resend
-   - Use branded sender email
-   - Custom email templates
 
 6. **SEO Enhancements**
    - Blog/portfolio section with multi-page routing

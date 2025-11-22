@@ -38,6 +38,183 @@ Build on Phase 4B's testing foundation by expanding test coverage across the ent
 
 ## 🧩 Phase 5 Scope
 
+### ⚡ Emergency Bug Fix: Mobile Drawer Navigation (COMPLETED)
+
+**Status:** ✅ **COMPLETED** - November 22, 2025
+
+**Issue:** Mobile drawer navigation was not scrolling to sections in production. When users clicked navigation links in the mobile drawer (hamburger menu), nothing happened. The bug only occurred in production builds, not during local development.
+
+**Root Causes:**
+1. **Lazy Loading Race Condition** - Gallery, Testimonials, and Contact sections are lazy-loaded (`App.tsx:13-15`). When navigation occurred, these sections might not exist in the DOM yet, causing scroll to fail.
+2. **Drawer Close Timing** - Sheet component closed immediately on link click (`Header.tsx:119`), causing animation to interrupt native hash navigation in production builds.
+
+**Why Production-Only:**
+- Development mode: Slower execution + HMR kept modules in memory
+- Production mode: Optimized bundle + fast Sheet close = race condition exposed
+
+**Solution Implemented:**
+Created programmatic smooth scroll with lazy loading support:
+
+**Files Created:**
+- `src/lib/scrollToSection.ts` - Scroll utility with MutationObserver to wait for lazy-loaded sections
+
+**Files Modified:**
+- `src/components/layout/Header.tsx` - Updated navigation handlers:
+  - Prevents default hash behavior
+  - Calls `scrollToSection()` (waits for lazy sections to load)
+  - Closes drawer 300ms after scroll starts (smooth UX)
+  - Applied to both desktop and mobile navigation
+
+**Technical Implementation:**
+```typescript
+// Utility waits for element to exist (handles lazy loading)
+function waitForElement(selector: string, timeout = 2000): Promise<HTMLElement | null>
+
+// Scrolls smoothly to section after element loads
+export async function scrollToSection(sectionId: string): Promise<void>
+
+// Navigation handler with delayed drawer close
+const handleNavClick = async (e: React.MouseEvent, href: string) => {
+  e.preventDefault()
+  await scrollToSection(href)
+  setTimeout(() => setMobileMenuOpen(false), 300)
+}
+```
+
+**Testing:**
+- ✅ TypeScript type-check passed
+- ✅ Production build succeeded
+- ✅ All section IDs verified (about, services, gallery, testimonials, contact)
+- ✅ Preview build tested locally
+
+**Benefits:**
+- Controls timing to avoid race conditions
+- Ensures lazy sections load before scrolling
+- Consistent behavior in dev and production
+- Smooth UX with proper drawer close timing
+
+**Time Spent:** ~1 hour (diagnosis, implementation, testing)
+
+**Related Files:**
+- `src/App.tsx:13-15` - Lazy loaded sections
+- `src/sections/Gallery.tsx:9` - Gallery section ID
+- `src/sections/Testimonials.tsx:10` - Testimonials section ID
+- `src/sections/Contact.tsx:80` - Contact section ID
+
+**Deployment:** Pending (included in this commit)
+
+---
+
+### 0️⃣ Production Contact Form Setup (Priority: CRITICAL - BLOCKED)
+
+**Purpose:** Complete contact form configuration with custom domain email to enable production-ready client communications.
+
+**Current Status:** ⚠️ **BLOCKED** - Contact form is fully implemented and functional but uses Resend's onboarding domain (`onboarding@resend.dev`). Requires domain ownership transfer from Adrian before final configuration.
+
+**Background:**
+The contact form (`api/sendEmail.ts`) is complete with:
+- ✅ Full implementation with Resend API
+- ✅ Client-side validation (Zod schema)
+- ✅ Server-side validation
+- ✅ Error handling
+- ✅ E2E tests passing
+
+However, it currently sends emails from `onboarding@resend.dev` (temporary Resend domain). Production requires branded sender email from `wrightanglecarpentry.co.uk`.
+
+**Blocking Dependency:**
+Domain transfer from Adrian → James's Namecheap account is in progress. Cannot proceed until domain ownership is confirmed.
+
+**Implementation Tasks:**
+
+**T29-0: Domain Transfer Process (James's action - non-technical)**
+- ⏳ Wait for Namecheap transfer email from Adrian
+- ⏳ Accept domain transfer in Namecheap
+- ⏳ Confirm domain ownership in Namecheap dashboard
+- **Estimated Time:** 1-48 hours (waiting for Adrian + DNS propagation)
+
+**T29-1: Connect Domain to Vercel**
+- Add `wrightanglecarpentry.co.uk` to Vercel project
+- Add `www.wrightanglecarpentry.co.uk` subdomain
+- Configure DNS records in Namecheap (A Record + CNAME)
+- Verify SSL certificate provisioning
+- Test domain accessibility
+- **Dependencies:** T29-0 complete
+- **Estimated Time:** 30 minutes + 5-30 minutes DNS propagation
+
+**T29-2: Verify Domain in Resend**
+- Log into Resend dashboard (https://resend.com)
+- Add `wrightanglecarpentry.co.uk` as verified domain
+- Add required DNS records (SPF, DKIM, DMARC) to Namecheap
+- Wait for domain verification (usually 5-30 minutes)
+- Confirm "Verified" status in Resend
+- **Dependencies:** T29-1 complete
+- **Estimated Time:** 15 minutes + verification wait time
+
+**T29-3: Update Vercel Environment Variables**
+- Go to Vercel → Project Settings → Environment Variables
+- Update `RESEND_FROM` to: `Wright Angle Carpentry <contact@wrightanglecarpentry.co.uk>`
+- Optionally update `RESEND_TO` if different from current
+- Redeploy to apply new environment variables
+- **Dependencies:** T29-2 complete
+- **Estimated Time:** 5 minutes
+
+**T29-4: Production Testing**
+- Submit test form on production site
+- Verify email arrives from `contact@wrightanglecarpentry.co.uk`
+- Check email deliverability (inbox, not spam)
+- Test reply-to functionality
+- Verify email formatting and content
+- Test with multiple email providers (Gmail, Outlook, Apple Mail)
+- **Dependencies:** T29-3 complete
+- **Estimated Time:** 15 minutes
+
+**Acceptance Criteria:**
+- ✅ Domain `wrightanglecarpentry.co.uk` owned by James in Namecheap
+- ✅ Domain connected to Vercel with SSL certificate
+- ✅ Domain verified in Resend with all DNS records
+- ✅ Contact form sends emails from `contact@wrightanglecarpentry.co.uk`
+- ✅ Emails delivered successfully to inbox (not spam)
+- ✅ Reply-to functionality works correctly
+- ✅ Professional email formatting maintained
+- ✅ Production E2E tests passing
+
+**DNS Records Reference:**
+
+*For Vercel (Step T29-1):*
+```
+Type: A Record
+Host: @
+Value: 76.76.21.21 (Vercel IP - verify current IP in Vercel dashboard)
+TTL: Automatic
+
+Type: CNAME Record
+Host: www
+Value: cname.vercel-dns.com
+TTL: Automatic
+```
+
+*For Resend (Step T29-2):*
+Resend will provide specific values during domain verification. Typical records:
+```
+Type: TXT (SPF)
+Type: TXT (DKIM)
+Type: TXT (DMARC)
+```
+
+**Code Location:**
+- Contact form API: `api/sendEmail.ts:28-33` (comment explains temporary sender)
+- Environment variables: Vercel dashboard (not in code)
+
+**Documentation:**
+- Domain transfer guide: Provided to James (separate document)
+- CLAUDE.md already documents Resend configuration
+
+**Total Estimated Time:** 1 hour active work + waiting periods (domain transfer, DNS propagation, Resend verification)
+
+**Next Task After Completion:** Resume Phase 5 testing tasks (T30+)
+
+---
+
 ### 1️⃣ Component Test Suite (Priority: HIGH)
 
 **Purpose:** Ensure all React components render correctly and handle user interactions properly.
@@ -368,17 +545,30 @@ Build on Phase 4B's testing foundation by expanding test coverage across the ent
 
 | Task | Description | Priority | Estimated Time | Dependencies |
 |------|-------------|----------|----------------|--------------|
+| **T29** | Production Contact Form Setup | **CRITICAL** 🚨 | 1 hour + waiting | **BLOCKED** by domain transfer |
 | **T30** | Component Test Suite | HIGH | 6-8 hours | Test infrastructure |
 | **T31** | Utility Function Tests | HIGH | 3-4 hours | Test infrastructure |
 | **T32** | Expanded E2E Test Suite | MEDIUM | 5-6 hours | Playwright config |
 | **T33** | Analytics & Monitoring | MEDIUM | 2-3 hours | Vercel account |
 | **T34** | Real Testimonials | LOW | 1 hour | Client outreach (blocked) |
 
-**Total Estimated Time:** 17-22 hours (excluding blocked testimonials)
+**Total Estimated Time:** 18-23 hours + waiting periods (domain transfer, DNS propagation)
 
 ---
 
 ## 🚦 Recommended Execution Order
+
+### Priority 0: Contact Form Production Readiness (BLOCKED)
+🚨 **T29** - Production Contact Form Setup
+   - **Status:** BLOCKED - Waiting for domain transfer from Adrian
+   - **Action Required:** Monitor email for Namecheap transfer notification
+   - **Once unblocked:** Follow T29-0 through T29-4 sequentially
+   - **Estimated Time:** 1 hour active work + waiting periods
+   - **Importance:** CRITICAL for client communication - highest business value
+
+**Note:** While T29 is blocked, proceed with testing tasks (T30-T32) in parallel. Return to T29 immediately when domain transfer completes.
+
+---
 
 ### Week 1: Testing Foundation
 1. **T30** - Component Test Suite
@@ -586,21 +776,30 @@ Use `make baseline-coverage` before starting each task to track progress.
 
 ## 📞 Next Steps
 
-**Immediate Actions:**
+**CRITICAL Priority (BLOCKED):**
+1. 🚨 **T29 - Production Contact Form Setup**
+   - **Current Status:** BLOCKED - Waiting for domain transfer from Adrian
+   - **Action Required:** Monitor email for Namecheap transfer notification
+   - **Once unblocked:** Complete T29-0 through T29-4 immediately
+   - **Why Critical:** Contact form is the primary conversion point for new business
+
+**Immediate Actions (While T29 Blocked):**
 1. Review and approve Phase 5 PRD
 2. Create feature branch: `feature/phase-5-testing`
 3. Run `make baseline-coverage` to record starting point
 4. Begin T30 (Component Tests) following TDD methodology
+5. Proceed with T31-T32 testing tasks in parallel
 
 **Timeline Estimate:**
+- **Priority 0:** T29 Contact form setup - 1 hour (when unblocked)
 - Week 1: Component and utility tests (T30-T31)
 - Week 2: E2E tests and analytics (T32-T33)
 - Week 3: QA, documentation, deployment
-- **Total: 3 weeks** (17-22 hours of development work)
+- **Total: 3+ weeks** (18-23 hours of development work + waiting periods)
 
 **Blockers:**
-- None - All tasks can start immediately
-- T34 (Testimonials) remains blocked pending client outreach
+- 🚨 **T29 (Production Contact Form)** - BLOCKED by domain transfer from Adrian
+- **T34 (Testimonials)** - BLOCKED by client outreach
 
 ---
 
