@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetDescription,
   SheetHeader,
@@ -30,26 +31,15 @@ export function Header() {
   const whatsappHref = `https://wa.me/${siteData.contact.whatsapp.replace(/\+/g, '')}?text=${encodeURIComponent("Hi James, I'd like a quote for joinery work.")}`
 
   /**
-   * Handle navigation link clicks with programmatic scrolling
+   * Handle navigation to sections with programmatic scrolling
    * Fixes race condition between drawer close and lazy-loaded sections
-   * Uses synchronous handler to work with iOS Safari's preventDefault restrictions
+   * SheetClose handles drawer closing, we just scroll to the section
    */
-  const handleNavClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    href: string
-  ) => {
-    e.preventDefault()
-
-    // Start scrolling to section (fire-and-forget for iOS Safari compatibility)
-    // iOS Safari requires preventDefault() in synchronous handlers, so we don't await
-    scrollToSection(href).catch((err) => {
+  const handleNavigation = (sectionId: string) => {
+    // Scroll to section (handles lazy loading)
+    scrollToSection(sectionId).catch((err) => {
       console.error('Scroll error:', err)
     })
-
-    // Close mobile menu after scroll initiates (300ms delay for smooth UX)
-    setTimeout(() => {
-      setMobileMenuOpen(false)
-    }, 300)
   }
 
   return (
@@ -67,7 +57,10 @@ export function Header() {
               <a
                 key={link.href}
                 href={link.href}
-                onClick={(e) => handleNavClick(e, link.href)}
+                onClick={(e) => {
+                  e.preventDefault()
+                  handleNavigation(link.href)
+                }}
                 className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
               >
                 {link.label}
@@ -138,14 +131,14 @@ export function Header() {
                   {/* Mobile Navigation */}
                   <nav className="flex flex-col gap-4" aria-label="Mobile">
                     {navLinks.map((link) => (
-                      <a
-                        key={link.href}
-                        href={link.href}
-                        onClick={(e) => handleNavClick(e, link.href)}
-                        className="text-lg font-medium transition-colors hover:text-primary"
-                      >
-                        {link.label}
-                      </a>
+                      <SheetClose asChild key={link.href}>
+                        <button
+                          onClick={() => handleNavigation(link.href)}
+                          className="text-left text-lg font-medium transition-colors hover:text-primary"
+                        >
+                          {link.label}
+                        </button>
+                      </SheetClose>
                     ))}
                   </nav>
 
