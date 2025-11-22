@@ -32,15 +32,19 @@ export function Header() {
   /**
    * Handle navigation link clicks with programmatic scrolling
    * Fixes race condition between drawer close and lazy-loaded sections
+   * Uses synchronous handler to work with iOS Safari's preventDefault restrictions
    */
-  const handleNavClick = async (
+  const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string
   ) => {
     e.preventDefault()
 
-    // Start scrolling to section (handles lazy loading)
-    await scrollToSection(href)
+    // Start scrolling to section (fire-and-forget for iOS Safari compatibility)
+    // iOS Safari requires preventDefault() in synchronous handlers, so we don't await
+    scrollToSection(href).catch((err) => {
+      console.error('Scroll error:', err)
+    })
 
     // Close mobile menu after scroll initiates (300ms delay for smooth UX)
     setTimeout(() => {
