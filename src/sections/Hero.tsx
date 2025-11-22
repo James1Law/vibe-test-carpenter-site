@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/common/Container'
 import { siteData } from '@/data/site'
-import { Phone, Mail, MessageCircle, Shield, Award, MapPin } from 'lucide-react'
+import { Phone, Mail, MessageCircle, Shield, Award, MapPin, Facebook, Instagram } from 'lucide-react'
 
 export function Hero() {
   const phoneHref = `tel:${siteData.contact.phoneE164}`
@@ -96,6 +96,49 @@ export function Hero() {
                 WhatsApp
               </a>
             </Button>
+          </div>
+
+          {/* Social Links */}
+          <div className="mt-6 flex flex-col items-center gap-3">
+            <p className="text-sm font-medium text-primary-foreground/80">Follow Us</p>
+            <div className="flex items-center justify-center gap-3">
+              {siteData.socials.facebook && (
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-primary-foreground/20 bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20"
+                  asChild
+                >
+                  <a
+                    href={siteData.socials.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Follow us on Facebook"
+                  >
+                    <Facebook className="mr-2 h-5 w-5" />
+                    Facebook
+                  </a>
+                </Button>
+              )}
+              {siteData.socials.instagram && (
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-primary-foreground/20 bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20"
+                  asChild
+                >
+                  <a
+                    href={siteData.socials.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Follow us on Instagram"
+                  >
+                    <Instagram className="mr-2 h-5 w-5" />
+                    Instagram
+                  </a>
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </Container>
