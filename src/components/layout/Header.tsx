@@ -33,11 +33,17 @@ export function Header() {
   /**
    * Handle navigation to sections with programmatic scrolling
    * Fixes race condition between drawer close and lazy-loaded sections
-   * SheetClose handles drawer closing, we just scroll to the section
+   * Closes drawer first, waits for animation, then scrolls
    */
-  const handleNavigation = (sectionId: string) => {
-    // Scroll to section (handles lazy loading)
-    scrollToSection(sectionId).catch((err) => {
+  const handleNavigation = async (sectionId: string) => {
+    // Close drawer first (triggered by SheetClose wrapper)
+    setMobileMenuOpen(false)
+
+    // Wait for drawer close animation to complete (300ms animation + 50ms buffer)
+    await new Promise((resolve) => setTimeout(resolve, 350))
+
+    // Now scroll to section with stable layout (handles lazy loading)
+    await scrollToSection(sectionId).catch((err) => {
       console.error('Scroll error:', err)
     })
   }
