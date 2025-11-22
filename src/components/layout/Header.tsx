@@ -20,7 +20,8 @@ const navLinks = [
   { href: '#services', label: 'Services' },
   { href: '#gallery', label: 'Gallery' },
   { href: '#testimonials', label: 'Testimonials' },
-  { href: '#contact', label: 'Contact' },
+  // Contact form removed - customers prefer Phone/Email/WhatsApp (see research data)
+  // { href: '#contact', label: 'Contact' },
 ]
 
 export function Header() {
