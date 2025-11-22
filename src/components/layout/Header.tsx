@@ -4,7 +4,6 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -132,7 +131,6 @@ export function Header() {
               <SheetContent side="right">
                 <SheetHeader>
                   <SheetTitle>{siteData.name}</SheetTitle>
-                  <SheetDescription>Navigation & Contact</SheetDescription>
                 </SheetHeader>
                 <div className="mt-8 flex flex-col gap-6">
                   {/* Mobile Navigation */}

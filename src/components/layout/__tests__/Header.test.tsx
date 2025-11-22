@@ -21,7 +21,7 @@ describe('Header', () => {
       expect(screen.getByRole('link', { name: /services/i })).toBeInTheDocument()
       expect(screen.getByRole('link', { name: /gallery/i })).toBeInTheDocument()
       expect(screen.getByRole('link', { name: /testimonials/i })).toBeInTheDocument()
-      expect(screen.getByRole('link', { name: /contact/i })).toBeInTheDocument()
+      // Contact form removed - no longer in navigation
     })
 
     it('prevents default link behavior when clicked', async () => {
@@ -59,9 +59,9 @@ describe('Header', () => {
       const menuButton = screen.getByRole('button', { name: /open navigation menu/i })
       await user.click(menuButton)
 
-      // Sheet content should be visible (check for SheetDescription which is unique to menu)
+      // Sheet content should be visible (check for company name in SheetTitle)
       await waitFor(() => {
-        expect(screen.getByText('Navigation & Contact')).toBeInTheDocument()
+        expect(screen.getByRole('heading', { name: /wright angle carpentry/i })).toBeInTheDocument()
       })
     })
 
@@ -73,12 +73,12 @@ describe('Header', () => {
       const menuButton = screen.getByRole('button', { name: /open navigation menu/i })
       await user.click(menuButton)
 
-      // Check for navigation buttons (not links) inside the menu
+      // Check for navigation buttons (not links) inside the menu - Contact removed
       await waitFor(() => {
         const navButtons = screen.getAllByRole('button').filter(button =>
-          ['About', 'Services', 'Gallery', 'Testimonials', 'Contact'].includes(button.textContent || '')
+          ['About', 'Services', 'Gallery', 'Testimonials'].includes(button.textContent || '')
         )
-        expect(navButtons).toHaveLength(5)
+        expect(navButtons).toHaveLength(4)
       })
     })
 
@@ -90,18 +90,20 @@ describe('Header', () => {
       const menuButton = screen.getByRole('button', { name: /open navigation menu/i })
       await user.click(menuButton)
 
-      // Wait for menu to open
+      // Wait for menu to open (check for company name)
       await waitFor(() => {
-        expect(screen.getByText('Navigation & Contact')).toBeInTheDocument()
+        expect(screen.getByRole('heading', { name: /wright angle carpentry/i })).toBeInTheDocument()
       })
 
       // Click a navigation button
       const aboutButton = screen.getByRole('button', { name: /about/i })
       await user.click(aboutButton)
 
-      // Menu should close (SheetDescription should disappear)
+      // Menu should close (company name heading should disappear from mobile menu)
       await waitFor(() => {
-        expect(screen.queryByText('Navigation & Contact')).not.toBeInTheDocument()
+        const headings = screen.queryAllByRole('heading', { name: /wright angle carpentry/i })
+        // Only the logo text should remain, not the SheetTitle
+        expect(headings.length).toBeLessThanOrEqual(1)
       })
     })
 
@@ -116,7 +118,7 @@ describe('Header', () => {
       await user.click(menuButton)
 
       await waitFor(() => {
-        expect(screen.getByText('Navigation & Contact')).toBeInTheDocument()
+        expect(screen.getByRole('heading', { name: /wright angle carpentry/i })).toBeInTheDocument()
       })
 
       // Click Gallery navigation button
@@ -150,7 +152,7 @@ describe('Header', () => {
       await user.click(menuButton)
 
       await waitFor(() => {
-        expect(screen.getByText('Navigation & Contact')).toBeInTheDocument()
+        expect(screen.getByRole('heading', { name: /wright angle carpentry/i })).toBeInTheDocument()
       })
 
       // Record when we click (drawer starts closing)

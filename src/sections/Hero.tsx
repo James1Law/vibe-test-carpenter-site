@@ -11,7 +11,7 @@ export function Hero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative overflow-hidden bg-gradient-to-b from-primary to-primary/90 py-20 text-primary-foreground md:py-32"
+      className="relative overflow-hidden bg-gradient-to-b from-primary to-primary/90 py-8 text-primary-foreground md:py-32"
     >
       <Container>
         <div className="mx-auto max-w-3xl text-center">
