@@ -170,6 +170,21 @@ Flat config (`eslint.config.js`) with TypeScript-ESLint:
 
 5. **Type-check before commits** — `npm run type-check` must pass. Build command runs `tsc -b` first, so type errors block deployment.
 
+## File Boundaries
+
+Claude Code should NOT modify files in these directories:
+- `node_modules/` — Package dependencies
+- `dist/` — Production build output
+- `build/` — Build artifacts
+- `.next/` — Next.js build cache
+- `coverage/` — Test coverage reports
+- `test-results/` — Test output
+- `playwright-report/` — E2E test reports
+- `.vercel/` — Vercel deployment cache
+- `.git/` — Git internal files
+
+These directories are managed by tools and should never be edited manually.
+
 ## Common Development Patterns
 
 ### Adding a New Section
@@ -205,7 +220,7 @@ This project uses a **three-tier memory architecture** for AI assistance:
 - **Content:** Business data, technical stack, project milestones, relationships
 - **Update when:** Recording factual information about project decisions or business changes
 
-### 2. Personal Memory (`.mcp-memory/memory.md`)
+### 2. Personal Memory (`docs/workflows/memory.md`)
 - **Purpose:** Developer's coding preferences and workflow rules
 - **Managed by:** Manual updates
 - **Content:** Development style, testing rules, Git workflow, golden rules
@@ -219,14 +234,14 @@ This project uses a **three-tier memory architecture** for AI assistance:
 
 ### Integration Strategy
 
-See `.mcp-memory/context7-strategy.md` for comprehensive guide on using these systems together.
+See `docs/workflows/context7-strategy.md` for comprehensive guide on using these systems together.
 
 **Quick Guide:**
 - **Context7** = Research assistant (understand existing code)
 - **memory.json** = Knowledge base (record project facts)
 - **memory.md** = Personal rulebook (your coding style)
 
-MCP servers configured in `.cursor/mcp.json` — run automatically in Cursor/Claude Code via `npx -y`.
+MCP servers configured in `.mcp.json` at project root — run automatically in Cursor/Claude Code via `npx -y`.
 
 ## Testing Checklist
 
