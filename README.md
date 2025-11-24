@@ -64,6 +64,12 @@ src/
 │   ├── Testimonials.tsx # Lazy-loaded
 │   └── Contact.tsx      # Lazy-loaded with form
 └── App.tsx              # Main app with code-splitting
+
+docs/
+├── prds/                # Product Requirements Documents (Phases 2-5)
+├── architecture/        # Technical architecture docs
+├── workflows/           # Development workflow guides
+└── testing/             # QA reports and testing documentation
 ```
 
 ---
@@ -100,9 +106,10 @@ Update domain in:
 
 ### Company Logo
 
-**Current logo:** `public/WA Logo.png`
-- **Dimensions:** 585×427px (aspect ratio ~1.37:1)
-- **Size:** 43 KB PNG with transparency
+**Current logo:** `public/wa-logo.png` (main) and `public/wa-logo-square.png` (square variant)
+- **Main logo:** 585×427px (566 KB PNG with transparency)
+- **Square logo:** 512×512px (622 KB PNG) - used for favicon generation
+- **Design:** WA monogram made from carpenter's right angles, dark navy blue (#0f172a)
 - **Usage:** Integrated in Header via `<Logo />` component
 
 **Logo Component:**
@@ -113,8 +120,8 @@ Update domain in:
 
 **Display recommendations:**
 - **Header:** 40px height (desktop), 32px (mobile)
-- **Maximum:** 150px width to avoid pixelation
-- **Future upgrade:** Replace with 1200×800px or SVG for higher quality
+- **Footer:** Logo component with text
+- **Optimized rendering:** Uses `-webkit-optimize-contrast` for crisp display
 
 **Usage example:**
 ```tsx
@@ -129,29 +136,25 @@ import { Logo } from '@/components/common/Logo'
 
 ### Favicon & Icons
 
-**Current setup:**
-- `public/favicon.svg` — SVG favicon (WAC initials)
-- `public/apple-touch-icon.png` — iOS home screen icon (180×180)
-- `public/icon-192.png` — PWA icon (192×192)
-- `public/icon-512.png` — PWA icon (512×512)
+**Current setup (generated from WA logo in Phase 4A):**
+- `public/favicon.svg` — SVG favicon fallback
+- `public/favicon-16x16.png` — Standard browser favicon (1.4 KB)
+- `public/favicon-32x32.png` — High-res browser favicon (2.1 KB)
+- `public/apple-touch-icon.png` — iOS home screen icon 180×180 (19 KB)
+- `public/icon-192.png` — PWA icon 192×192 (21 KB)
+- `public/icon-512.png` — PWA icon 512×512 (151 KB)
 
-**To replace with custom icons:**
-
-1. Create icons from your logo using [Real Favicon Generator](https://realfavicongenerator.net)
-2. Replace placeholder files in `public/`
-3. Or use CLI: `npx sharp-cli -i logo.svg -o public/icon-512.png resize 512 512`
+All favicons generated from `public/wa-logo-square.png` using macOS `sips` tool.
 
 ### Open Graph Image
 
-**Current:** `public/og-image.jpg` (placeholder)
+**Current:** `public/og-image.png` (branded, created in Phase 4A)
 
-**To create:**
-1. Design 1200×630px image with:
-   - Background: `#0f172a` (brand colour) or wood texture
-   - Text: "Wright Angle Carpentry"
-   - Subtitle: "Bespoke Joinery in Dorset"
-2. Export as JPEG (≤150 KB, quality 85%)
-3. Replace `public/og-image.jpg`
+**Specifications:**
+- **Size:** 1200×630px (688 KB PNG)
+- **Design:** Features WA logo, business name, tagline, service area, and phone number
+- **Background:** Navy blue (#0f172a) matching brand identity
+- **Used for:** Social media previews (Facebook, Twitter, LinkedIn)
 
 **Tools:**
 - [Figma](https://figma.com) / [Canva](https://canva.com)
@@ -268,8 +271,8 @@ vercel dev
 1. **Push to GitHub:**
    ```bash
    git add -A
-   git commit -m "feat: complete site build"
-   git push origin feature/carpenter-onepage
+   git commit -m "feat: your feature description"
+   git push origin main
    ```
 
 2. **Deploy to Vercel:**
@@ -370,7 +373,7 @@ dist/assets/forms-*.js          ~22.28 KB gzip (lazy)
 dist/assets/ui-*.js              ~2.91 KB gzip
 ```
 
-**Note:** Logo asset (`WA Logo.png`) adds 43 KB to initial page load, bringing total initial payload to ~133 KB gzipped.
+**Note:** Logo asset (`wa-logo.png`) and branding images add ~43 KB to initial page load.
 
 ---
 
@@ -413,18 +416,23 @@ Edit `src/data/services.ts`:
 
 ### Add Gallery Image
 
-1. Add image to `public/images/`
+1. Add image to `public/` directory
 2. Edit `src/data/gallery.ts`:
 ```typescript
 {
-  id: 'project-7',
-  src: '/images/project-7.jpg',
-  alt: 'Description for SEO',
+  id: 'project-9',
+  src: '/project-9.png',
+  alt: 'Detailed description for SEO and accessibility',
   caption: 'Project name',
   width: 800,
   height: 600,
 }
 ```
+
+**Current gallery images:**
+- 8 AI-generated professional carpentry images (Phase 4A)
+- All images in PNG format, 800×600px
+- Located in `public/` root directory
 
 ### Add Testimonial
 
@@ -479,13 +487,23 @@ Proprietary — Built for **Wright Angle Carpentry**
 
 ---
 
-## 📞 Support
+## 📞 Support & Contact
 
-For technical issues or questions:
+**For business inquiries and quotes:**
+- **Phone:** 07753 958 395
+- **Email:** james@wrightanglecarpentry.co.uk
+- **WhatsApp:** 07753 958 395
+- **Website:** https://www.wrightanglecarpentry.co.uk
+
+**Business address:**
+Woodside Cottage, Carey Road
+Wareham, Dorset
+BH20 7PB
+United Kingdom
+
+**Service areas:** Wareham, Poole, Dorset, and surrounding towns
+
+**For technical/development questions:**
 - **Developer:** James Law
-- **Contact:** Via GitHub or email
-
-For business inquiries:
-- **Email:** hello@wrightanglecarpentry.co.uk
-- **Phone:** 01234 567890
+- **Repository:** https://github.com/James1Law/vibe-test-carpenter-site
 
