@@ -154,8 +154,8 @@ The contact form now uses **Web3Forms** instead of Resend to avoid DNS complexit
 
 **Total Time Spent:** ~2 hours (vs. estimated 1+ hour + waiting periods for Resend)
 
-**Future Enhancement (Optional):**
-- 📋 **Add mobile drawer navigation link to Contact section** - Previously the mobile menu had a direct link to scroll to the contact form. This was removed when the form was temporarily hidden. Consider adding it back for better UX on mobile devices.
+**Follow-up Enhancement (✅ COMPLETED - November 24, 2025):**
+- ✅ **Added Contact navigation link to header (desktop + mobile)** - Restored the Contact link to the navigation menu. Previously removed when form was hidden. Now provides direct access to contact section with smooth scrolling. One-line change using existing scroll infrastructure. See `docs/prds/PRD-Contact-Nav-Link.md` for details.
 
 ---
 
