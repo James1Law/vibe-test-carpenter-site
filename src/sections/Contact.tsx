@@ -45,18 +45,26 @@ export function Contact() {
     setIsSubmitting(true)
 
     try {
-      const response = await fetch('/api/sendEmail', {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          access_key: import.meta.env.VITE_WEB3FORMS_ACCESS_KEY,
+          name: data.name,
+          email: data.email,
+          phone: data.phone || 'N/A',
+          message: data.message,
+          subject: 'New enquiry from Wright Angle Carpentry website',
+          from_name: 'Wright Angle Carpentry Website',
+        }),
       })
 
       const result = await response.json()
 
-      if (!response.ok) {
-        throw new Error(result.error || 'Failed to send message')
+      if (!result.success) {
+        throw new Error(result.message || 'Failed to send message')
       }
 
       toast.success("Thanks — we'll get back to you shortly.", {

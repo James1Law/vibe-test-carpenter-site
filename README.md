@@ -201,64 +201,61 @@ Add to `index.html`:
 
 ## 📧 Contact Form / Email Integration
 
-The contact form uses **Resend API** to deliver enquiries to `james@wrightanglecarpentry.co.uk`.
+The contact form uses **Web3Forms** to deliver enquiries to `james@wrightanglecarpentry.co.uk`.
 
 ### Setup for Production
 
-1. **Get Resend API Key:**
-   - Sign up at [resend.com](https://resend.com)
-   - Create API key at [resend.com/api-keys](https://resend.com/api-keys)
+1. **Get Web3Forms Access Key:**
+   - Sign up at [web3forms.com](https://web3forms.com) using `james@wrightanglecarpentry.co.uk`
+   - Get your free access key from the dashboard
+   - **Free tier:** 250 submissions/month
 
-2. **Configure Environment Variables in Vercel:**
+2. **Configure Environment Variable in Vercel:**
    - Go to Vercel Project → Settings → Environment Variables
-   - Add these variables:
-   
+   - Add this variable:
+
    | Variable | Value | Required | Environments |
    |----------|-------|----------|--------------|
-   | `RESEND_API_KEY` | Your Resend API key (e.g., `re_...`) | Yes | Preview + Production |
-   | `RESEND_FROM` | Sender email (default: `Wright Angle Carpentry <onboarding@resend.dev>`) | No | Preview + Production |
-   | `RESEND_TO` | Recipient email (default: `james@wrightanglecarpentry.co.uk`) | No | Preview + Production |
+   | `VITE_WEB3FORMS_ACCESS_KEY` | Your Web3Forms access key | Yes | Preview + Production |
 
-   **Note:** `RESEND_FROM` uses `onboarding@resend.dev` (verified domain) by default. Once you verify `wrightanglecarpentry.co.uk` in Resend, update to `Wright Angle Carpentry <noreply@wrightanglecarpentry.co.uk>`.
-
-3. **Verify Domain (Optional, for branded sender):**
-   - Go to [Resend Domains](https://resend.com/domains)
-   - Add `wrightanglecarpentry.co.uk`
-   - Add DNS records as instructed
-   - Once verified, update `RESEND_FROM` in Vercel
-
-4. **Redeploy:**
+3. **Redeploy:**
    ```bash
-   git push origin feature/carpenter-onepage
+   git push origin main
    ```
-   Vercel will automatically redeploy with the new environment variables.
+   Vercel will automatically redeploy with the new environment variable.
 
 ### Local Development
 
 For local testing, create a `.env` file (not committed):
 ```bash
-RESEND_API_KEY=your_api_key_here
-RESEND_FROM=Wright Angle Carpentry <onboarding@resend.dev>
-RESEND_TO=james@wrightanglecarpentry.co.uk
+# Web3Forms Access Key
+# Get your free access key from https://web3forms.com
+VITE_WEB3FORMS_ACCESS_KEY=your_access_key_here
 ```
 
-**Note:** The API endpoint (`/api/sendEmail.ts`) is a Vercel serverless function. Local development requires Vercel CLI:
+Then start the dev server:
 ```bash
-vercel dev
+npm run dev
 ```
 
 ### How It Works
 
-- Form submission POSTs to `/api/sendEmail`
-- Request validated with Zod schema
-- Email sent via Resend API to `james@wrightanglecarpentry.co.uk`
-- Reply-to set to submitter's email
-- Success/error toasts displayed to user
+- Form submission POSTs directly to `https://api.web3forms.com/submit`
+- Request validated with Zod schema (client-side)
+- Web3Forms forwards email to `james@wrightanglecarpentry.co.uk`
+- Reply-to automatically set to submitter's email
+- Success/error toasts displayed to user via Sonner
+
+**Benefits:**
+- ✅ No serverless function needed
+- ✅ No DNS configuration required
+- ✅ Doesn't interfere with existing email setup
+- ✅ Simple, reliable, and free (250 submissions/month)
 
 ### Testing
 
-1. Fill out contact form on deployed site
-2. Submit and verify success toast appears
+1. Fill out contact form on deployed site or locally
+2. Submit and verify success toast appears: "Thanks — we'll get back to you shortly."
 3. Check `james@wrightanglecarpentry.co.uk` inbox for email
 4. Verify reply-to address is set to submitter's email
 

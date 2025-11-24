@@ -58,32 +58,49 @@ test.describe('Contact Form', () => {
   });
 
   test('should accept valid form data', async ({ page }) => {
+    // Intercept Web3Forms API call
+    await page.route('https://api.web3forms.com/submit', async route => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ success: true }),
+      });
+    });
+
     await page.getByLabel(/name/i).fill('John Smith');
     await page.getByLabel(/email/i).fill('john@example.com');
     await page.getByLabel(/phone/i).fill('07700 900000');
     await page.getByLabel(/message/i).fill('I am interested in getting a quote for custom kitchen cabinets.');
 
-    // Note: This will actually attempt to send the form in local dev
-    // In a real test, you might want to mock the API endpoint
     await page.getByRole('button', { name: /send message/i }).click();
 
-    // Wait for either success or error toast
-    // Adjust based on your actual toast implementation
-    await expect(page.locator('.sonner')).toBeVisible({ timeout: 5000 });
+    // Wait for success toast to appear
+    await expect(page.getByText(/back to you shortly/i)).toBeVisible({ timeout: 5000 });
   });
 
   test('should clear form after successful submission', async ({ page }) => {
+    // Mock successful Web3Forms response
+    await page.route('https://api.web3forms.com/submit', async route => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ success: true }),
+      });
+    });
+
     await page.getByLabel(/name/i).fill('Test User');
     await page.getByLabel(/email/i).fill('test@example.com');
     await page.getByLabel(/message/i).fill('This is a test message for form clearing.');
 
     await page.getByRole('button', { name: /send message/i }).click();
 
-    // Wait a bit for the form to potentially clear
-    await page.waitForTimeout(1000);
+    // Wait for success message
+    await expect(page.getByText(/back to you shortly/i)).toBeVisible({ timeout: 5000 });
 
-    // Note: Adjust based on actual form behavior after submission
-    // This test assumes form clears on success
+    // Verify form fields are cleared
+    await expect(page.getByLabel(/name/i)).toHaveValue('');
+    await expect(page.getByLabel(/email/i)).toHaveValue('');
+    await expect(page.getByLabel(/message/i)).toHaveValue('');
   });
 
   test('should be keyboard accessible', async ({ page }) => {

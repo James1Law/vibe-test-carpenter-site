@@ -105,113 +105,57 @@ const handleNavClick = async (e: React.MouseEvent, href: string) => {
 
 ---
 
-### 0️⃣ Production Contact Form Setup (Priority: CRITICAL - BLOCKED)
+### 0️⃣ Production Contact Form Setup (Priority: CRITICAL - ✅ COMPLETED)
 
-**Purpose:** Complete contact form configuration with custom domain email to enable production-ready client communications.
+**Purpose:** Complete contact form configuration to enable production-ready client communications.
 
-**Current Status:** ⚠️ **BLOCKED** - Contact form is fully implemented and functional but uses Resend's onboarding domain (`onboarding@resend.dev`). Requires domain ownership transfer from Adrian before final configuration.
+**Current Status:** ✅ **COMPLETED** - Migrated from Resend to Web3Forms (November 24, 2025)
 
-**Background:**
-The contact form (`api/sendEmail.ts`) is complete with:
-- ✅ Full implementation with Resend API
+**Solution Implemented:**
+The contact form now uses **Web3Forms** instead of Resend to avoid DNS complexity and ensure reliability:
+- ✅ Web3Forms integration (no serverless function needed)
 - ✅ Client-side validation (Zod schema)
-- ✅ Server-side validation
-- ✅ Error handling
-- ✅ E2E tests passing
+- ✅ Direct POST to Web3Forms API
+- ✅ Error handling with toast notifications
+- ✅ 11 unit tests passing (TDD approach)
+- ✅ E2E tests updated and passing
+- ✅ Emails delivered to james@wrightanglecarpentry.co.uk
+- ✅ Reply-to functionality working correctly
 
-However, it currently sends emails from `onboarding@resend.dev` (temporary Resend domain). Production requires branded sender email from `wrightanglecarpentry.co.uk`.
+**Benefits of Web3Forms:**
+- ✅ No DNS configuration required (avoids interfering with Zoho email)
+- ✅ No serverless function maintenance
+- ✅ Simpler architecture (-73 lines of code removed)
+- ✅ Free tier: 250 submissions/month
+- ✅ Production-ready immediately
 
-**Blocking Dependency:**
-Domain transfer from Adrian → James's Namecheap account is in progress. Cannot proceed until domain ownership is confirmed.
+**Implementation Tasks (OBSOLETE - Web3Forms Used Instead):**
 
-**Implementation Tasks:**
+~~All T29 tasks below are obsolete as we migrated to Web3Forms instead of Resend.~~
 
-**T29-0: Domain Transfer Process (James's action - non-technical)**
-- ⏳ Wait for Namecheap transfer email from Adrian
-- ⏳ Accept domain transfer in Namecheap
-- ⏳ Confirm domain ownership in Namecheap dashboard
-- **Estimated Time:** 1-48 hours (waiting for Adrian + DNS propagation)
+**Actual Implementation (Completed November 24, 2025):**
+1. ✅ Created Web3Forms account with james@wrightanglecarpentry.co.uk
+2. ✅ Obtained access key: `09378b22-c2f8-42b7-a759-29ce9427518a`
+3. ✅ Updated `src/sections/Contact.tsx` to POST to Web3Forms API
+4. ✅ Deleted `api/sendEmail.ts` serverless function
+5. ✅ Removed `resend` dependency from package.json
+6. ✅ Created `.env` and `.env.example` with `VITE_WEB3FORMS_ACCESS_KEY`
+7. ✅ Added Vite environment types in `src/vite-env.d.ts`
+8. ✅ Updated CLAUDE.md documentation
+9. ✅ Updated README.md documentation
+10. ✅ Wrote 11 unit tests (TDD approach) - all passing
+11. ✅ Updated E2E tests - all passing
+12. ✅ Type-check: 0 errors
+13. ✅ Lint: 0 errors
+14. ✅ Production build: Success
+15. ✅ Tested locally: Working ✅
+16. ✅ Verified email delivery to james@wrightanglecarpentry.co.uk
+17. ✅ Set environment variable in Vercel
 
-**T29-1: Connect Domain to Vercel**
-- Add `wrightanglecarpentry.co.uk` to Vercel project
-- Add `www.wrightanglecarpentry.co.uk` subdomain
-- Configure DNS records in Namecheap (A Record + CNAME)
-- Verify SSL certificate provisioning
-- Test domain accessibility
-- **Dependencies:** T29-0 complete
-- **Estimated Time:** 30 minutes + 5-30 minutes DNS propagation
+**Total Time Spent:** ~2 hours (vs. estimated 1+ hour + waiting periods for Resend)
 
-**T29-2: Verify Domain in Resend**
-- Log into Resend dashboard (https://resend.com)
-- Add `wrightanglecarpentry.co.uk` as verified domain
-- Add required DNS records (SPF, DKIM, DMARC) to Namecheap
-- Wait for domain verification (usually 5-30 minutes)
-- Confirm "Verified" status in Resend
-- **Dependencies:** T29-1 complete
-- **Estimated Time:** 15 minutes + verification wait time
-
-**T29-3: Update Vercel Environment Variables**
-- Go to Vercel → Project Settings → Environment Variables
-- Update `RESEND_FROM` to: `Wright Angle Carpentry <contact@wrightanglecarpentry.co.uk>`
-- Optionally update `RESEND_TO` if different from current
-- Redeploy to apply new environment variables
-- **Dependencies:** T29-2 complete
-- **Estimated Time:** 5 minutes
-
-**T29-4: Production Testing**
-- Submit test form on production site
-- Verify email arrives from `contact@wrightanglecarpentry.co.uk`
-- Check email deliverability (inbox, not spam)
-- Test reply-to functionality
-- Verify email formatting and content
-- Test with multiple email providers (Gmail, Outlook, Apple Mail)
-- **Dependencies:** T29-3 complete
-- **Estimated Time:** 15 minutes
-
-**Acceptance Criteria:**
-- ✅ Domain `wrightanglecarpentry.co.uk` owned by James in Namecheap
-- ✅ Domain connected to Vercel with SSL certificate
-- ✅ Domain verified in Resend with all DNS records
-- ✅ Contact form sends emails from `contact@wrightanglecarpentry.co.uk`
-- ✅ Emails delivered successfully to inbox (not spam)
-- ✅ Reply-to functionality works correctly
-- ✅ Professional email formatting maintained
-- ✅ Production E2E tests passing
-
-**DNS Records Reference:**
-
-*For Vercel (Step T29-1):*
-```
-Type: A Record
-Host: @
-Value: 76.76.21.21 (Vercel IP - verify current IP in Vercel dashboard)
-TTL: Automatic
-
-Type: CNAME Record
-Host: www
-Value: cname.vercel-dns.com
-TTL: Automatic
-```
-
-*For Resend (Step T29-2):*
-Resend will provide specific values during domain verification. Typical records:
-```
-Type: TXT (SPF)
-Type: TXT (DKIM)
-Type: TXT (DMARC)
-```
-
-**Code Location:**
-- Contact form API: `api/sendEmail.ts:28-33` (comment explains temporary sender)
-- Environment variables: Vercel dashboard (not in code)
-
-**Documentation:**
-- Domain transfer guide: Provided to James (separate document)
-- CLAUDE.md already documents Resend configuration
-
-**Total Estimated Time:** 1 hour active work + waiting periods (domain transfer, DNS propagation, Resend verification)
-
-**Next Task After Completion:** Resume Phase 5 testing tasks (T30+)
+**Future Enhancement (Optional):**
+- 📋 **Add mobile drawer navigation link to Contact section** - Previously the mobile menu had a direct link to scroll to the contact form. This was removed when the form was temporarily hidden. Consider adding it back for better UX on mobile devices.
 
 ---
 

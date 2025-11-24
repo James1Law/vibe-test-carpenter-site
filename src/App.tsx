@@ -12,9 +12,7 @@ import { Services } from '@/sections/Services'
 // Lazy load non-critical sections for better performance
 const Gallery = lazy(() => import('@/sections/Gallery').then(module => ({ default: module.Gallery })))
 const Testimonials = lazy(() => import('@/sections/Testimonials').then(module => ({ default: module.Testimonials })))
-// Contact form temporarily hidden - customers prefer direct contact (Phone/Email/WhatsApp)
-// Data shows 67.3% prefer email over forms, phone is #1 preference (42%)
-// const Contact = lazy(() => import('@/sections/Contact').then(module => ({ default: module.Contact })))
+const Contact = lazy(() => import('@/sections/Contact').then(module => ({ default: module.Contact })))
 
 // Minimal fallback to prevent layout shift
 const SectionFallback = () => (
@@ -46,12 +44,10 @@ function App() {
         <Testimonials />
       </Suspense>
 
-      {/* Contact section - temporarily hidden */}
-      {/* Customers prefer direct contact methods: Phone (42%), Email (41.8%), WhatsApp (98% open rate) */}
-      {/* Contact form only preferred by 15.4% - focusing on preferred methods instead */}
-      {/* <Suspense fallback={<SectionFallback />}>
+      {/* Contact section - lazy loaded */}
+      <Suspense fallback={<SectionFallback />}>
         <Contact />
-      </Suspense> */}
+      </Suspense>
     </RootLayout>
   )
 }

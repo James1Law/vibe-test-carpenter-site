@@ -111,14 +111,14 @@ Both consume `src/data/site.ts` as single source of truth. Canonical URLs are ha
 ### Contact Form Flow
 
 1. User submits form → validated client-side via `src/lib/validation/contactSchema.ts` (Zod)
-2. POST to `/api/sendEmail` → handled by `api/sendEmail.ts` (Vercel serverless function)
-3. Serverless function validates again server-side, sends email via Resend API
+2. POST directly to Web3Forms API (`https://api.web3forms.com/submit`)
+3. Web3Forms forwards email to james@wrightanglecarpentry.co.uk
 4. Success/error toast shown via `sonner` library
 
-Environment variables (Vercel only):
-- `RESEND_API_KEY` (required)
-- `RESEND_FROM` (optional, defaults to onboarding domain)
-- `RESEND_TO` (optional, defaults to james@wrightanglecarpentry.co.uk)
+Environment variables (required for both local and production):
+- `VITE_WEB3FORMS_ACCESS_KEY` (required) - Get free key from https://web3forms.com
+
+**Benefits:** No serverless function needed, no DNS configuration required, doesn't interfere with existing email setup.
 
 ### Component Structure
 
@@ -166,7 +166,7 @@ Flat config (`eslint.config.js`) with TypeScript-ESLint:
 
 3. **Domain-specific URLs** — `src/lib/seo.ts` and `public/sitemap.xml` reference `wrightanglecarpentry.co.uk`. Update these if deploying under different domain.
 
-4. **Vercel-only serverless** — `/api/sendEmail.ts` requires Vercel runtime. Won't work with `npm run dev` — use `vercel dev` to test contact form locally.
+4. **Web3Forms integration** — Contact form uses Web3Forms API for email delivery. Set `VITE_WEB3FORMS_ACCESS_KEY` in `.env` for local development and in Vercel environment variables for production.
 
 5. **Type-check before commits** — `npm run type-check` must pass. Build command runs `tsc -b` first, so type errors block deployment.
 
@@ -251,5 +251,5 @@ Before deployment:
 3. `npm run build` — Build succeeds
 4. `npm run preview` → Test production build
 5. Lighthouse audit — Performance ≥90, A11y ≥95, SEO ≥95
-6. Test contact form with `vercel dev` (requires Resend API key in `.env`)
+6. Test contact form with `npm run dev` (requires Web3Forms access key in `.env`)
 7. Validate JSON-LD at https://search.google.com/test/rich-results
