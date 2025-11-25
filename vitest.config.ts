@@ -10,6 +10,11 @@ export default defineConfig({
     setupFiles: ['./src/test/setup.ts'],
     include: ['src/**/*.{test,spec}.{ts,tsx}'],
     exclude: ['node_modules', 'dist', '.next', '.cache', 'e2e', 'playwright-report', 'test-results'],
+    env: {
+      // Mock Web3Forms access key for testing
+      // Tests only verify payload structure; fetch is mocked, so no real API calls are made
+      VITE_WEB3FORMS_ACCESS_KEY: 'test_access_key_for_ci_testing',
+    },
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'json-summary', 'html'],
